@@ -13,6 +13,7 @@ export default {
         'lg-phone': { max: '639px' },
         'md-phone': { max: '460px' },
         phone: { max: '400px' },
+        'mini-phone': { max: '360px' },
       },
     },
   },

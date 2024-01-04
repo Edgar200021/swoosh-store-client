@@ -19,8 +19,6 @@ export const Collapsible = ({
 }: Props) => {
   const [isCollapsed, setIsCollapsed] = useState(false)
 
-  console.log(collapsed)
-
   return (
     <>
       {renderTrigger?.(setIsCollapsed, isCollapsed)}
@@ -28,7 +26,10 @@ export const Collapsible = ({
         className={cn(
           'grid grid-rows-[0fr] transition-all duration-300 ease [&>*]:min-h-0 overflow-hidden',
           className,
-          { 'grid-rows-[1fr]': collapsed !== undefined ? collapsed : isCollapsed }
+          {
+            'grid-rows-[1fr]':
+              collapsed !== undefined ? collapsed : isCollapsed,
+          }
         )}
       >
         {children}

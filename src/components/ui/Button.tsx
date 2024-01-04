@@ -23,9 +23,9 @@ export const Button = ({
   to,
   ...otherProps
 }: Props) => {
-
   if (variant === 'primary') {
-    return !to ? <button
+    return !to ? (
+      <button
         className={cn(buttonVariants[variant], className, {
           'bg-[#FF6915] [&>span[data-decor]]:bg-[#FB5A00]': color === 'orange',
         })}
@@ -38,18 +38,32 @@ export const Button = ({
         >
           &#8594;
         </span>
-      </button> : <NavLink to={to} className={cn(buttonVariants[variant], className, {
+      </button>
+    ) : (
+      <NavLink
+        to={to}
+        className={cn(buttonVariants[variant], className, {
           'bg-[#FF6915] [&>span[data-decor]]:bg-[#FB5A00]': color === 'orange',
-        })}>  <span className="w-[90%]">{children}</span>
+        })}
+      >
+        {' '}
+        <span className="w-[90%]">{children}</span>
         <span
           data-decor
           className="absolute w-[65px] h-full  right-0 top-0 flex justify-center items-center text-white bg-black text-3xl"
         >
           &#8594;
-        </span></NavLink>
+        </span>
+      </NavLink>
+    )
   }
 
-  if (to) return <NavLink className={cn(buttonVariants[variant], className, {})} to={to}>{children}</NavLink>
+  if (to)
+    return (
+      <NavLink className={cn(buttonVariants[variant], className, {})} to={to}>
+        {children}
+      </NavLink>
+    )
 
   return (
     <button
