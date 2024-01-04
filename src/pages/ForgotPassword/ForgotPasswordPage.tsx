@@ -1,4 +1,4 @@
-import { ForgotPasswordForm } from '../../components/forms/ForgotPasswordForm'
+import { ForgotPasswordForm } from '../../components/Forms/ForgotPasswordForm'
 import { useForgotPasswordMutation } from '../../store/auth/authApi'
 import { cn } from '../../utils/cn'
 
@@ -28,7 +28,7 @@ export const ForgotPasswordPage = ({ className }: Props) => {
   }
 
   return (
-    <main className={cn('container', className)}>
+    <main className={cn('container pt-40', className)}>
       <h1 className="mb-14 text-5xl font-medium">Восстановление пароля</h1>
       <div className="max-w-[544px] mx-auto p-10 border-[1px] border-[#EAEAEA] ">
         {isSuccess === true ? (

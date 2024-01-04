@@ -11,6 +11,7 @@ import { validateError } from '../../utils/validateError'
 
 import eye from '../../assets/icons/eye.svg'
 import { useState } from 'react'
+import { Collapsible } from '../Collapsible/Collapsible'
 
 interface Props {
   className?: string
@@ -22,7 +23,7 @@ export const SignUpForm = ({ className }: Props) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
   })
 
@@ -47,9 +48,11 @@ export const SignUpForm = ({ className }: Props) => {
     }
   }
 
+  console.log('render')
+  console.log(!!errors?.password?.message)
+
   return (
     <form
-      //@ts-expect-error ...
       onSubmit={handleSubmit(onSubmit)}
       className={cn('max-w-[464px]', className)}
     >
@@ -70,19 +73,11 @@ export const SignUpForm = ({ className }: Props) => {
               />
             )}
           />
+          <Collapsible collapsed={!!errors?.email?.message}>
+            <span> {errors?.email && errors?.email.message}</span>
+          </Collapsible>
         </div>
         <div className="flex flex-col items-start gap-y-[5px] mb-4 relative">
-          <Button
-            variant="clear"
-            type="button"
-            className={cn(
-              "w-[18px] h-3 absolute right-5 bottom-[15px] cursor-pointer after:content-[''] after:absolute after:-left-[2px] after:opacity-0 after:top-[50%] after:translate-y-[-50%] after:-rotate-45 after:w-6 after:h-px after:bg-[#C1C1C1] after:transition-opacity after:duration-300 after:ease",
-              { 'after:opacity-100': isPasswordVisible }
-            )}
-            onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-          >
-            <img src={eye} alt="Eye icon" />
-          </Button>
           <span className='relative after:content-["*"] after:absolute after:top-0 after:right-[-4px] after:w-px after:h-px after:text-[#FF1515]'>
             Пароль
           </span>
@@ -90,29 +85,35 @@ export const SignUpForm = ({ className }: Props) => {
             control={control}
             name="password"
             render={({ field }) => (
-              <Input
-                type={isPasswordVisible ? 'text' : 'password'}
-                required
-                placeholder="Придумайте пароль"
-                {...field}
-              />
+              <label className=" w-full relative">
+                <Input
+                  type={isPasswordVisible ? 'text' : 'password'}
+                  required
+                  placeholder="Придумайте пароль"
+                  {...field}
+                  className="pr-14"
+                />
+                <Button
+                  variant="clear"
+                  type="button"
+                  className={cn(
+                    "w-[18px] h-3 absolute right-5 bottom-[15px] cursor-pointer after:content-[''] after:absolute after:-left-[2px] after:opacity-0 after:top-[50%] after:translate-y-[-50%] after:-rotate-45 after:w-6 after:h-px after:bg-[#C1C1C1] after:transition-opacity after:duration-300 after:ease",
+                    { 'after:opacity-100': !isPasswordVisible }
+                  )}
+                  onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                >
+                  <img src={eye} alt="Eye icon" />
+                </Button>
+              </label>
             )}
           />
+          <Collapsible collapsed={!!errors?.password?.message}>
+            <span className="text-red-600">
+              {errors?.password && errors?.password.message}
+            </span>
+          </Collapsible>
         </div>
         <div className="flex flex-col items-start gap-y-[5px] mb-4 relative">
-          <Button
-            type="button"
-            variant="clear"
-            className={cn(
-              "w-[18px] h-3 absolute right-5 bottom-[15px] cursor-pointer after:content-[''] after:absolute after:-left-[2px] after:opacity-0 after:top-[50%] after:translate-y-[-50%] after:-rotate-45 after:w-6 after:h-px after:bg-[#C1C1C1] after:transition-opacity after:duration-300 after:ease",
-              { 'after:opacity-100': isConfirmPasswordVisible }
-            )}
-            onClick={() =>
-              setIsConfirmPasswordVisible(!isConfirmPasswordVisible)
-            }
-          >
-            <img src={eye} alt="Eye icon" />
-          </Button>
           <span className='relative after:content-["*"] after:absolute after:top-0 after:right-[-4px] after:w-px after:h-px after:text-[#FF1515]'>
             Повторите пароль
           </span>
@@ -120,14 +121,34 @@ export const SignUpForm = ({ className }: Props) => {
             control={control}
             name="passwordConfirm"
             render={({ field }) => (
-              <Input
-                type={isConfirmPasswordVisible ? 'text' : 'password'}
-                required
-                placeholder="Повторите пароль"
-                {...field}
-              />
+              <label className='w-full relative'>
+                <Input
+                  type={isConfirmPasswordVisible ? 'text' : 'password'}
+                  required
+                  placeholder="Повторите пароль"
+                  {...field}
+                />
+                <Button
+                  type="button"
+                  variant="clear"
+                  className={cn(
+                    "w-[18px] h-3 absolute right-5 bottom-[15px] cursor-pointer after:content-[''] after:absolute after:-left-[2px] after:opacity-0 after:top-[50%] after:translate-y-[-50%] after:-rotate-45 after:w-6 after:h-px after:bg-[#C1C1C1] after:transition-opacity after:duration-300 after:ease",
+                    { 'after:opacity-100': !isConfirmPasswordVisible }
+                  )}
+                  onClick={() =>
+                    setIsConfirmPasswordVisible(!isConfirmPasswordVisible)
+                  }
+                >
+                  <img src={eye} alt="Eye icon" />
+                </Button>
+              </label>
             )}
           />
+          <Collapsible collapsed={!!errors?.passwordConfirm?.message}>
+            <span className="text-red-600">
+              {errors?.passwordConfirm && errors?.passwordConfirm.message}
+            </span>
+          </Collapsible>
         </div>
         <label className="flex gap-x-[10px] items-start max-w-[400px] mb-6">
           <input

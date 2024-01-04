@@ -14,7 +14,10 @@ interface Props {
 }
 
 export const SignInForm = ({ className }: Props) => {
-  const { control, handleSubmit } = useForm()
+  const { control, handleSubmit } = useForm<{
+    email: string
+    password: string
+  }>()
   const [signIn, { isLoading }] = useSignInMutation()
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
@@ -34,7 +37,6 @@ export const SignInForm = ({ className }: Props) => {
 
   return (
     <form
-      //@ts-expect-error ...
       onSubmit={handleSubmit(onSubmit)}
       className={cn('max-w-[464px]', className)}
     >
@@ -62,7 +64,7 @@ export const SignInForm = ({ className }: Props) => {
             type="button"
             className={cn(
               "w-[18px] h-3 absolute right-5 bottom-[15px] cursor-pointer after:content-[''] after:absolute after:-left-[2px] after:opacity-0 after:top-[50%] after:translate-y-[-50%] after:-rotate-45 after:w-6 after:h-px after:bg-[#C1C1C1] after:transition-opacity after:duration-300 after:ease",
-              { 'after:opacity-100': isPasswordVisible }
+              { 'after:opacity-100': !isPasswordVisible }
             )}
             onClick={() => setIsPasswordVisible(!isPasswordVisible)}
           >
@@ -86,7 +88,7 @@ export const SignInForm = ({ className }: Props) => {
         </div>
         <div>
           <Button
-            to="/auth/reset-password"
+            to="/auth/forgot-password"
             className="underline w-full text-center p-3 block bg-[#F9F9F9] mb-4"
             variant="clear"
           >

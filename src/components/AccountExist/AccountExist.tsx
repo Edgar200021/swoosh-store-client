@@ -11,13 +11,13 @@ export const AccountExist = ({ className, type }: Props) => {
   return (
     <div
       className={cn(
-        'pl-[50px] border-l-[1px] border-l-[#EAEAEA] grid grid-cols-[40px_1fr] gap-x-7 items-start max-w-[650px]',
+        'pl-[50px] border-l-[1px] border-l-[#EAEAEA] grid grid-cols-[40px_1fr] gap-x-7 items-start max-w-[650px] lg-tablet:pl-0 lg-tablet:border-none lg-tablet:text-center lg-tablet:flex lg-tablet:flex-col lg-tablet:items-center tablet:max-w-[400px]',
         className
       )}
     >
-      <img src={accountExist} alt="User icon" />
-      <div>
-        <span className="text-[28px] font-medium mb-[38px] block">
+      <img className='w-10 h-[45px]' src={accountExist} alt="User icon" />
+      <div className='lg-tablet:flex lg-tablet:flex-col lg-tablet:items-center'>
+        <span className="text-[28px] font-medium mb-[38px] block lg-tablet:mb-3">
           {type === 'sign-up' ? 'Уже есть аккаунт?' : 'Еще нет аккаунта?'}
         </span>
         <p className="mb-[10px]">

@@ -15,4 +15,8 @@
   img {
 	@apply max-w-full w-full 
   }
+
+  body {
+	@apply bg-gray-50
+  }
 }
