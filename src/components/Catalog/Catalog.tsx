@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const Catalog = ({ className }: Props) => {
-  const [isOpened, setIsOpened] = useState(true)
+  const [isOpened, setIsOpened] = useState(false)
 
   return (
     <>

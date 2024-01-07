@@ -15,6 +15,12 @@ export default {
         phone: { max: '400px' },
         'mini-phone': { max: '360px' },
       },
+      height: {
+        header: '120px',
+        'mobile-header': '60px',
+        hero: 'calc(100svh - 160px)',
+        'mobile-hero': 'calc(100svh - 80px)',
+      },
     },
   },
   plugins: [],

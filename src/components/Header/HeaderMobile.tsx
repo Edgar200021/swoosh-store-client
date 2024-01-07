@@ -15,7 +15,7 @@ interface Props {
 export const HeaderMobile = ({ className }: Props) => {
   return (
     <header
-      className={cn('h-[60px] w-full fixed backdrop-blur-xl z-50', className)}
+      className={cn('h-mobile-header w-full fixed backdrop-blur-xl z-50', className)}
     >
       <div className="border-[#EAEAEA] border-b-[1px]  ">
         <div className="container flex items-center gap-x-8 phone:gap-x-2   ">

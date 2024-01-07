@@ -67,17 +67,17 @@ export const MobileMenu = ({ className }: Props) => {
             { 'left-0': !!isOpened }
           )}
         >
+          <Button
+            variant="clear"
+            className="absolute left-[340px] mini-phone:left-[300px] top-2 text-white"
+            onClick={closeMenu}
+          >
+            X
+          </Button>
           <div
             ref={ref as React.RefObject<HTMLDivElement>}
-            className="max-w-[330px] mini-phone:max-w-[290px] bg-white h-full overflow-y-clip relative"
+            className="max-w-[330px] mini-phone:max-w-[290px] bg-white h-full overflow-y-auto   "
           >
-            <Button
-              variant="clear"
-              className="absolute -right-5 top-2 text-white"
-              onClick={closeMenu}
-            >
-              X
-            </Button>
             <ProductSearch className="mb-3" collapsible={false} />
             <div className="flex items-center gap-x-2 px-3 mb-5">
               <div className="w-3 h-4 ">

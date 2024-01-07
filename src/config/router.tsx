@@ -4,6 +4,7 @@ import { SignUpPage } from '../pages/SignUp/SignUpPage'
 import { SignInPage } from '../pages/SignIn/SignInPage'
 import { ForgotPasswordPage } from '../pages/ForgotPassword/ForgotPasswordPage'
 import { ResetPasswordPage } from '../pages/ResetPassword/ResetPasswordPage'
+import { Main } from '../pages/Main/Main'
 
 export const routerConfig = createBrowserRouter([
   {
@@ -12,7 +13,7 @@ export const routerConfig = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <h1>HEllo app</h1>,
+        element: <Main />,
       },
       {
         path: 'auth/sign-up',
