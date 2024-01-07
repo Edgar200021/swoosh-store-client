@@ -1,22 +1,33 @@
 import { RouterProvider } from 'react-router-dom'
 import { routerConfig } from './config/router'
-import { useLazyFindAllUsersQuery } from './store/user/userApi'
+import { LOCAL_STORAGE_FAVORITES_KEY } from './config/constants'
+import { useEffect } from 'react'
+import { useAppDispatch } from './store/store'
+import { addFavoriteSneakers } from './store/sneaker/sneakerSlice'
+import { Sneaker } from './store/sneaker/interfaces'
+import { localStorageApi } from './utils/localStorageApi'
 
 function App() {
-  const [trigger, { error, data }] = useLazyFindAllUsersQuery()
+  const dispatch = useAppDispatch()
+  const { getItem } = localStorageApi(LOCAL_STORAGE_FAVORITES_KEY)
 
-  if (error) console.log(error)
+  console.log(getItem())
 
-  console.log(data)
+  useEffect(() => {
+    const favoriteProducts = getItem()
+    if (favoriteProducts) {
+      dispatch(
+        addFavoriteSneakers(
+          favoriteProducts as Omit<
+            Sneaker,
+            'rating' | 'size' | 'material' | 'description'
+          >[]
+        )
+      )
+    }
+  }, [])
 
-  return (
-    <>
-      {/*<button onClick={() => trigger({})} className="text-5xl text-red-500">
-        Fetch products
-      </button>*/}
-      <RouterProvider router={routerConfig} />
-    </>
-  )
+  return <RouterProvider router={routerConfig} />
 }
 
 export default App

@@ -21,6 +21,9 @@ export default {
         hero: 'calc(100svh - 160px)',
         'mobile-hero': 'calc(100svh - 80px)',
       },
+      gridTemplateColumns: {
+        'sneaker-list': 'repeat(auto-fit,minmax(240px,1fr))',
+      },
     },
   },
   plugins: [],

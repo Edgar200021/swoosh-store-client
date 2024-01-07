@@ -10,36 +10,36 @@ export const Nav = ({ className }: Props) => {
     <nav>
       <ul
         className={cn(
-          ' flex flex-col gap-x-10  gap-y-7 text-[#585858] text-sm lg-tablet:gap-x-4',
+          ' flex flex-col gap-x-10  gap-y-7 text-[#585858] text-sm lg-tablet:gap-x-4  ',
           className
         )}
       >
-        <li>
+        <li className="hover:text-black hover:scale-110 transition-all duration-300 ease">
           <Button variant="clear" to="about">
             О магазине
           </Button>
         </li>
-        <li>
+        <li className="hover:text-black hover:scale-110 transition-all duration-300 ease">
           <Button variant="clear" to="blog">
             Наш блог
           </Button>
         </li>
-        <li>
+        <li className="hover:text-black hover:scale-110 transition-all duration-300 ease">
           <Button variant="clear" to="delivery">
             Доставка
           </Button>
         </li>
-        <li>
+        <li className="hover:text-black hover:scale-110 transition-all duration-300 ease">
           <Button variant="clear" to="payment">
             Оплата
           </Button>
         </li>
-        <li>
+        <li className="hover:text-black hover:scale-110 transition-all duration-300 ease">
           <Button variant="clear" to="contacts">
             Контакты
           </Button>
         </li>
-        <li>
+        <li className="hover:text-black hover:scale-110 transition-all duration-300 ease">
           <Button variant="clear" to="individual-order">
             Индивидуальный заказ
           </Button>
