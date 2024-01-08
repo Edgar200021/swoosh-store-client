@@ -4,7 +4,7 @@
 
 @layer components {
   .container {
-    @apply max-w-[1420px] px-8 mx-auto;
+    @apply max-w-[1420px] px-8 mx-auto tablet:px-[25px] phone:px-[15px];
   }
 }
 

@@ -34,7 +34,7 @@ export const Hero = ({ className }: Props) => {
           </Button>
         </div>
         <img
-          className=" w-[800px] object-cover absolute top-2 right-0 h-[700px] desktop:w-[600px] desktop:h-[600px] md-tablet:w-[500px] md-tablet:top-28 md-tablet:right-[55%] md-tablet:-translate-x-[-50%] min-w-[400px] lg-phone:object-contain"
+          className=" w-[800px] object-contain absolute top-2 right-0 h-[650px] desktop:w-[600px] desktop:h-[600px] md-tablet:w-[500px] md-tablet:top-28 md-tablet:right-[55%] md-tablet:-translate-x-[-50%] min-w-[400px] "
           src={sneaker}
         />
         <img

@@ -11,8 +11,6 @@ function App() {
   const dispatch = useAppDispatch()
   const { getItem } = localStorageApi(LOCAL_STORAGE_FAVORITES_KEY)
 
-  console.log(getItem())
-
   useEffect(() => {
     const favoriteProducts = getItem()
     if (favoriteProducts) {

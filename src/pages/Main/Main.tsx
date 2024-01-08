@@ -1,9 +1,12 @@
 import { Benefit } from '../../components/Benefit/Benefit'
 import { Hero } from '../../components/Hero/Hero'
 import { SneakersList } from '../../components/Lists/SneakersList'
-import { Sneaker } from '../../components/Sneaker/Sneaker'
+import { HitSneaker, Sneaker } from '../../components/Sneaker/Sneaker'
 import { BENEFITS } from '../../config/constants'
 import { cn } from '../../utils/cn'
+
+import hitSneaker from '../../assets/img/hit-sneaker.png'
+import hitSneakerLogo from '../../assets/icons/nike-logo.svg'
 
 interface Props {
   className?: string
@@ -25,6 +28,22 @@ export const Main = ({ className }: Props) => {
       <section>
         <div className="container">
           <SneakersList />
+        </div>
+      </section>
+      <section>
+        <div className="container">
+          <SneakersList />
+        </div>
+      </section>
+      <section>
+        <div className="container">
+          <HitSneaker
+            brand="nike"
+            title="Nike Air Max Alpha Trainer 5"
+            brandIcon={hitSneakerLogo}
+            img={hitSneaker}
+            price={7899}
+          />
         </div>
       </section>
     </main>

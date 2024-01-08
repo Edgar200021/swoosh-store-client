@@ -10,6 +10,7 @@ interface Props {
 }
 
 export const SneakersList = ({ className, filter }: Props) => {
+  return null
   const { data, error } = useGetAllProductsQuery({
     ...filter,
     fields: '-description -size -rating -material',
@@ -18,6 +19,8 @@ export const SneakersList = ({ className, filter }: Props) => {
   if (error) {
     if (isCustomError(error)) validateError(error)
   }
+
+  console.log(data)
 
   return (
     <ul

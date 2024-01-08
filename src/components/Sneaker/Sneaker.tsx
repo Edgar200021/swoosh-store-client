@@ -3,6 +3,7 @@ import cartIcon from '../../assets/icons/cart.svg'
 import cartAddIcon from '../../assets/cart-add.svg'
 import hearthIcon from '../../assets/icons/hearth.svg'
 import fullHearthIcon from '../../assets/icons/full-hearth.svg'
+import plusIcon from '../../assets/icons/plus.svg'
 
 import { cn } from '../../utils/cn'
 import { Button } from '../ui/Button'
@@ -71,5 +72,66 @@ export const Sneaker = ({ className, sneaker }: Props) => {
         </Button>
       </div>
     </li>
+  )
+}
+
+interface HitProps {
+  className?: string
+  brand: string
+  title: string
+  price: number
+  img: string
+  brandIcon: string
+}
+
+export const HitSneaker = ({
+  className,
+  brand,
+  price,
+  img,
+  brandIcon,
+  title,
+}: HitProps) => {
+  return (
+    <div
+      className={cn(
+        'py-20 px-[70px] desktop:px-10  lg-tablet:py-4  after:absolute after:w-full after:h-full after:inset-0 after:bg-[#1E1E1E] after:-z-20 flex justify-between text-white relative lg-tablet:flex lg-tablet:flex-col lg-tablet:gap-y-80 lg-tablet:items-center overflow-hidden ',
+        className
+      )}
+    >
+      <div className="max-w-[450px] relative  ">
+        <h2 className="uppercase text-[60px] font-medium mb-7 md-tablet:text-[34px] mini-phone:text-[26px] lg-tablet:text-[34px] lg-tablet:mb-4">
+          Хит сезона
+          <span className="flex items-center gap-x-7 ">
+            от {brand}
+            <span className="h-[2px] block w-[120px] bg-white"></span>
+          </span>
+        </h2>
+
+        <span className="max-w-[320px] block mb-[22px] text-4xl lg-tablet:text-[22px] lg-tablet:mb-2">{title}</span>
+
+        <span className="block mb-[22px]">
+          от <b>{price}₽</b>
+        </span>
+        <Button className="max-w-64" color="orange" to="/products">
+          Подробнее
+        </Button>
+      </div>
+
+      <div className="absolute w-[800px] right-80 h-[400px] -z-10 lg-tablet:top-[50%] lg-tablet:translate-y-[-20%] lg-tablet:right-[60%] lg-phone:right-[70%] md-phone:right-[80%]  ">
+        <img className="absolute object-contain h-full z-10 right-[-100px] desktop:right-[-300px] lg-tablet:w-[550px] md-phone:w-[400px] md-phone:right-[-250px]" src={img} alt={title} />
+        <img className="absolute h-full object-contain right-[-100px] w-[600px] desktop:right-[-300px] lg-tablet:w-[400px] md-phone:w-[300px] md-phone:right-[-250px]  " src={brandIcon} />
+      </div>
+
+      <span className="text-lg block max-w-80 pl-8 self-end relative z-20 lg-tablet:text-[15px] lg-tablet:self-center  ">
+        Уникальная технология структуры стельки позволяет забыть про обувь на
+        ноге.
+        <img
+          className="absolute left-0 top-2 w-[18px] h-[18px]"
+          src={plusIcon}
+          alt="Plus"
+        />
+      </span>
+    </div>
   )
 }
