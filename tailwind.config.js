@@ -16,13 +16,14 @@ export default {
         'mini-phone': { max: '360px' },
       },
       height: {
-        header: '120px',
+        header: '105px',
         'mobile-header': '60px',
-        hero: 'calc(100svh - 160px)',
+        hero: 'calc(100svh - 145px)',
         'mobile-hero': 'calc(100svh - 80px)',
       },
       gridTemplateColumns: {
         'sneaker-list': 'repeat(auto-fit,minmax(240px,1fr))',
+		'sneaker-list-horizontal': 'repeat(auto-fit,minmax(400px,1fr))',
       },
     },
   },

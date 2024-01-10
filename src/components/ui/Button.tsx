@@ -1,6 +1,9 @@
-import { ComponentProps } from 'react'
+import { ComponentProps, useEffect, useState } from 'react'
 import { cn } from '../../utils/cn'
 import { NavLink } from 'react-router-dom'
+import { useSwiper } from 'swiper/react'
+
+import swiperIcon from '../../assets/icons/swiper-arrow.svg'
 
 const buttonVariants = {
   primary:
@@ -72,5 +75,56 @@ export const Button = ({
     >
       {children}
     </button>
+  )
+}
+
+export const SwiperButtons = ({
+  className,
+  length,
+}: {
+  className?: string
+  length: number | undefined
+}) => {
+  const [slideConfig, setSlideConfig] = useState({
+    isBeginning: true,
+    isEnd: false,
+  })
+  const swiper = useSwiper()
+
+  useEffect(() => {
+    swiper.on('slideChange', swipe => {
+      setSlideConfig({ isBeginning: swipe.isBeginning, isEnd: swipe.isEnd })
+    })
+  }, [swiper])
+
+  return (
+    <div className={cn('flex items-center gap-x-4', className)}>
+      <Button
+        variant="clear"
+        className="w-8 "
+        disabled={slideConfig.isBeginning}
+        onClick={() => swiper.slidePrev()}
+      >
+        <img
+          className={cn('transition-opacity ease duration-400', {
+            'opacity-50': slideConfig.isBeginning,
+          })}
+          src={swiperIcon}
+        ></img>
+      </Button>
+      <Button
+        variant="clear"
+        disabled={slideConfig.isEnd}
+        className="w-8"
+        onClick={() => swiper.slideNext()}
+      >
+        <img
+          className={cn('transition-opacity rotate-180 ease duration-400', {
+            'opacity-50': slideConfig.isEnd,
+          })}
+          src={swiperIcon}
+        ></img>
+      </Button>
+    </div>
   )
 }

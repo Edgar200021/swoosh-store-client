@@ -4,3 +4,8 @@ export interface BaseFilter {
   page: number
   limit: number
 }
+
+export interface BaseApiResponse<T> {
+  quantity: number
+  data: T
+}

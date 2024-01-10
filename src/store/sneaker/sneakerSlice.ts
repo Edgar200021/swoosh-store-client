@@ -29,10 +29,10 @@ export const sneakerSlice = createSlice({
         state.favoriteSneakers = state.favoriteSneakers.filter(
           sneaker => sneaker._id !== action.payload._id
         )
-        return
+      } else {
+        state.favoriteSneakers.push(action.payload)
       }
 
-      state.favoriteSneakers.push(action.payload)
       localStorage.setItem(
         LOCAL_STORAGE_FAVORITES_KEY,
         JSON.stringify(state.favoriteSneakers)

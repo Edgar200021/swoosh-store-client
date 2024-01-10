@@ -18,7 +18,7 @@ export const Header = ({ className }: Props) => {
   return (
     <header
       className={cn(
-        'fixed !z-50 w-full h-header backdrop-blur-xl ',
+        'fixed !z-50 w-full h-header shadow-xl bg-white ',
         className
       )}
     >

@@ -14,13 +14,22 @@ export interface Sneaker {
   rating: number
   priceDiscount?: number
   discount?: number
+  createdAt: Date
 }
 
 export interface SneakerFilter extends BaseFilter {
-  'title[regex]': string
-  'price[gte]': number
-  'price[lte]': number
+  title: string
+  'price>=': number
+  'price<=': number
+  'price<': number
+  'price>': number
+  price: number
   color: string
   size: string
   material: Materials
+  'rating>=': number
+  'rating<=': number
+  'rating<': number
+  'rating>': number
+  rating: number
 }

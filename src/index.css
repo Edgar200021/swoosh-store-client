@@ -20,3 +20,13 @@
     @apply bg-gray-50;
   }
 }
+
+.padding {
+  padding-left: max(25px, calc((100% - 1360px) / 2));
+}
+
+@media screen and (max-width: 400px) {
+  .padding {
+    padding-left: max(15px, calc((100% - 1360px) / 2));
+  }
+}

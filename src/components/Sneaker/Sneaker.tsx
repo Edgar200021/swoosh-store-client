@@ -1,4 +1,3 @@
-import img from '../../assets/img/demo.png'
 import cartIcon from '../../assets/icons/cart.svg'
 import cartAddIcon from '../../assets/cart-add.svg'
 import hearthIcon from '../../assets/icons/hearth.svg'
@@ -11,24 +10,35 @@ import { useAppDispatch } from '../../store/store'
 import { Sneaker as SneakerType } from '../../store/sneaker/interfaces'
 import { addFavoriteSneaker } from '../../store/sneaker/sneakerSlice'
 import { getFavoriteProduct } from '../../store/sneaker/selectors'
+import { getDayDifference } from '../../utils/date'
 
 interface Props {
   className?: string
+  variant?: 'horizontal' | 'vertical'
   sneaker: Omit<SneakerType, 'rating' | 'size' | 'material' | 'description'>
 }
 
-export const Sneaker = ({ className, sneaker }: Props) => {
+export const Sneaker = ({
+  className,
+  sneaker,
+  variant = 'vertical',
+}: Props) => {
   const dispatch = useAppDispatch()
   const favoriteProduct = getFavoriteProduct(sneaker._id)
 
-  return (
+  return variant === 'vertical' ? (
     <li
       className={cn(
-        'grid grid-rows-[minmax(160px,400px),repeat(4,min-content),] max-w-[350px] min-w-[158px] gap-x-2 w-full',
+        'grid grid-rows-[minmax(160px,400px),repeat(4,min-content),] max-w-[350px] min-w-[158px] gap-x-2 w-full ',
         className
       )}
     >
-      <div className="relative mb-6 overflow-hidden bg-[#F6F6F6]">
+      <div className="relative mb-6 overflow-hidden bg-[#F6F6F6] cursor-pointer">
+        <Button
+          className="absolute block max-w-full z-10  top-0 left-0 w-full h-full"
+          to={`/products/${sneaker._id}`}
+          variant="clear"
+        ></Button>
         <img
           className="absolute h-full object-cover "
           src={sneaker.image}
@@ -36,11 +46,19 @@ export const Sneaker = ({ className, sneaker }: Props) => {
         />
         <Button
           variant="clear"
-          className="w-[22px] h-6 absolute top-5 right-5"
+          className="w-[22px] h-6 absolute top-5 right-5 z-20"
           onClick={() => dispatch(addFavoriteSneaker(sneaker))}
         >
           <img src={favoriteProduct ? fullHearthIcon : hearthIcon} />
         </Button>
+        <div className="absolute left-5 top-5 flex items-center gap-x-3 text-white">
+          {sneaker.discount && (
+            <span className="bg-orange-500 p-2">{sneaker.discount}%</span>
+          )}
+          {getDayDifference(sneaker.createdAt) <= 7 && (
+            <span className="bg-black uppercase p-2">Новинка</span>
+          )}
+        </div>
       </div>
       <span className="text-[#747474] text-xs uppercase tracking-[.50px] font-medium">
         {sneaker.for}
@@ -72,6 +90,73 @@ export const Sneaker = ({ className, sneaker }: Props) => {
         </Button>
       </div>
     </li>
+  ) : (
+    <li
+      className={cn(
+        'flex items-center max-w-[900px] min-w-[260px] gap-x-5 px-10 py-5 w-full relative bg-[#D9D9D9] h-[450px] ',
+        className
+      )}
+    >
+      <div className="relative max-w-[500px] max-h-[330px] h-full w-full overflow-hidden cursor-pointer">
+        <Button
+          className="absolute block max-w-full z-10  top-0 left-0 w-full h-full"
+          to={`/products/${sneaker._id}`}
+          variant="clear"
+        ></Button>
+        <img
+          className="absolute h-full object-cover rotate-45 -translate-x-20n "
+          src={sneaker.image}
+          alt={sneaker.title}
+        />
+
+        <div className="absolute left-5 top-5 flex items-center gap-x-3 text-white">
+          {sneaker.discount && (
+            <span className="bg-orange-500 p-2">{sneaker.discount}%</span>
+          )}
+          {getDayDifference(sneaker.createdAt) <= 7 && (
+            <span className="bg-black uppercase p-2">Новинка</span>
+          )}
+        </div>
+      </div>
+      <div className='space-y-[18px]'>
+        <span className="text-[#747474] text-xs uppercase tracking-[.50px] font-medium block">
+          {sneaker.for}
+        </span>
+        <span className='text-[28px]'>{sneaker.title}</span>
+        <div className="flex gap-x-2 items-center">
+          <span>Цвета:</span>
+          <ul className="flex gap-x-2">
+            {sneaker.colors.map(color => (
+              <li
+                key={color}
+                style={{ backgroundColor: color }}
+                className="w-4 h-4 rounded-full"
+              ></li>
+            ))}
+          </ul>
+        </div>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-x-3">
+            <span className="text-xl">{sneaker.price} ₽</span>
+            {!!sneaker.priceDiscount && (
+              <span className="text-[#999] line-through text-sm">
+                {sneaker.priceDiscount} ₽
+              </span>
+            )}
+          </div>
+          <Button variant="clear" className="w-[22px] h-6">
+            <img src={cartIcon} />
+          </Button>
+        </div>
+      </div>
+      <Button
+        variant="clear"
+        className="w-[22px] h-6 absolute top-5 right-5 z-20"
+        onClick={() => dispatch(addFavoriteSneaker(sneaker))}
+      >
+        <img src={favoriteProduct ? fullHearthIcon : hearthIcon} />
+      </Button>
+    </li>
   )
 }
 
@@ -95,7 +180,7 @@ export const HitSneaker = ({
   return (
     <div
       className={cn(
-        'py-20 px-[70px] desktop:px-10  lg-tablet:py-4  after:absolute after:w-full after:h-full after:inset-0 after:bg-[#1E1E1E] after:-z-20 flex justify-between text-white relative lg-tablet:flex lg-tablet:flex-col lg-tablet:gap-y-80 lg-tablet:items-center overflow-hidden ',
+        'py-20 px-[70px] desktop:px-10 phone:px-[35px]  lg-tablet:py-4  after:absolute after:w-full after:h-full after:inset-0 after:bg-[#1E1E1E] after:-z-20 flex justify-between text-white relative lg-tablet:flex lg-tablet:flex-col lg-tablet:gap-y-80 lg-tablet:items-center overflow-hidden ',
         className
       )}
     >
@@ -104,11 +189,13 @@ export const HitSneaker = ({
           Хит сезона
           <span className="flex items-center gap-x-7 ">
             от {brand}
-            <span className="h-[2px] block w-[120px] bg-white"></span>
+            <span className="h-[2px] block w-[120px] bg-white phone:w-[80px]"></span>
           </span>
         </h2>
 
-        <span className="max-w-[320px] block mb-[22px] text-4xl lg-tablet:text-[22px] lg-tablet:mb-2">{title}</span>
+        <span className="max-w-[320px] block mb-[22px] text-4xl lg-tablet:text-[22px] lg-tablet:mb-2">
+          {title}
+        </span>
 
         <span className="block mb-[22px]">
           от <b>{price}₽</b>
@@ -119,8 +206,15 @@ export const HitSneaker = ({
       </div>
 
       <div className="absolute w-[800px] right-80 h-[400px] -z-10 lg-tablet:top-[50%] lg-tablet:translate-y-[-20%] lg-tablet:right-[60%] lg-phone:right-[70%] md-phone:right-[80%]  ">
-        <img className="absolute object-contain h-full z-10 right-[-100px] desktop:right-[-300px] lg-tablet:w-[550px] md-phone:w-[400px] md-phone:right-[-250px]" src={img} alt={title} />
-        <img className="absolute h-full object-contain right-[-100px] w-[600px] desktop:right-[-300px] lg-tablet:w-[400px] md-phone:w-[300px] md-phone:right-[-250px]  " src={brandIcon} />
+        <img
+          className="absolute object-contain h-full z-10 right-[-100px] desktop:right-[-300px] lg-tablet:w-[550px] md-phone:w-[400px] md-phone:right-[-250px]"
+          src={img}
+          alt={title}
+        />
+        <img
+          className="absolute h-full object-contain right-[-100px] w-[600px] desktop:right-[-300px] lg-tablet:w-[400px] md-phone:w-[300px] md-phone:right-[-250px]  "
+          src={brandIcon}
+        />
       </div>
 
       <span className="text-lg block max-w-80 pl-8 self-end relative z-20 lg-tablet:text-[15px] lg-tablet:self-center  ">

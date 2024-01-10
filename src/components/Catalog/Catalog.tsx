@@ -48,7 +48,11 @@ export const Catalog = ({ className }: Props) => {
                 <ul className="space-y-1">
                   {values.map(value => (
                     <li key={value}>
-                      <Button variant="clear" to="/products">
+                      <Button
+                        className="hover:text-orange-500 transition-colors ease duration-300"
+                        variant="clear"
+                        to="/products"
+                      >
                         {value}
                       </Button>
                     </li>
@@ -60,7 +64,7 @@ export const Catalog = ({ className }: Props) => {
           <NewCollection
             img={img}
             title={'Новая коллекция в каталоге Nike Air Max Solo'}
-            className="max-w-[440px] ml-auto max-h-[346px] md-desktop:hidden"
+            className="max-w-[440px] ml-auto max-h-[346px] md-desktop:hidden min-h-[300px]"
           />
         </div>
       </Collapsible>

@@ -11,7 +11,7 @@ interface Props {
 export const Hero = ({ className }: Props) => {
   return (
     <section className={cn('h-hero md-tablet:h-mobile-hero', className)}>
-      <div className="container relative overflow-hidden">
+      <div className="container relative md-tablet:overflow-hidden ">
         <div className="max-w-[500px] w-full relative z-10 md-tablet:flex md-tablet:items-center md-tablet:flex-col md-tablet:mx-auto md-tablet:justify-center">
           <h1 className="uppercase text-[60px] font-medium mb-5 md-tablet:text-[34px] mini-phone:text-[26px]">
             <span className="flex items-center gap-x-7">
@@ -34,11 +34,11 @@ export const Hero = ({ className }: Props) => {
           </Button>
         </div>
         <img
-          className=" w-[800px] object-contain absolute top-2 right-0 h-[650px] desktop:w-[600px] desktop:h-[600px] md-tablet:w-[500px] md-tablet:top-28 md-tablet:right-[55%] md-tablet:-translate-x-[-50%] min-w-[400px] "
+          className=" w-[700px] object-cover absolute top-4 right-20 h-[700px] desktop:w-[600px] desktop:h-[600px] lg-tablet:right-10 md-tablet:w-[500px] md-tablet:top-28 md-tablet:right-[55%] md-tablet:-translate-x-[-50%] min-w-[400px] md-phone:right-[70%] md-phone:w-[500px] md-phone:h-[500px] md-phone:top-40 "
           src={sneaker}
         />
         <img
-          className="absolute top-40 right-0 filter max-h-[194px] w-[750px] desktop:h-[100px] desktop:w-[393px] md-tablet:top-[260px] md-tablet:right-[50%]  md-tablet:-translate-x-[-60%] md-phone:top-[280px] lg-phone:h-[88px] mini-phone:-translate-x-[-50%] "
+          className="absolute top-40 right-0 filter max-h-[194px] w-[750px] desktop:h-[100px] desktop:right-20 desktop:w-[393px] lg-tablet:right-10 md-tablet:top-[260px] md-tablet:right-[50%]  md-tablet:-translate-x-[-60%] md-phone:top-[280px] lg-phone:h-[88px]  md-phone:right-[60%] "
           src={nikeIcon}
           alt="Icon"
         />

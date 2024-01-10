@@ -2,6 +2,17 @@ import shield from '../assets/icons/shield.svg'
 import stars from '../assets/icons/stars.svg'
 import exclusive from '../assets/icons/exclusive-cart.svg'
 
+import img1 from '../assets/img/publications/img1.jpg'
+import img2 from '../assets/img/publications/img2.jpg'
+import img3 from '../assets/img/publications/img3.jpg'
+import img4 from '../assets/img/publications/img4.jpg'
+import img5 from '../assets/img/publications/img5.jpg'
+import img6 from '../assets/img/publications/img6.jpg'
+import img7 from '../assets/img/publications/img7.jpg'
+import img8 from '../assets/img/publications/img8.jpg'
+import img9 from '../assets/img/publications/img9.jpg'
+import img10 from '../assets/img/publications/img10.jpg'
+
 export const LOCAL_STORAGE_ACCESS_KEY = 'accessToken'
 export const LOCAL_STORAGE_FAVORITES_KEY = 'favorites'
 
@@ -60,5 +71,78 @@ export const BENEFITS = [
     img: exclusive,
     title: 'Эксклюзивный выбор',
     text: 'Богатый ассортимент оригинальных моделей Nike, включая редкие выпуски.',
+  },
+]
+
+export const PUBLICATIONS = [
+  {
+    category: 'советы',
+    title: 'Десять советов по выбору кроссовок для спорта',
+    subTitle: 'Рассказываем все тонкости выбора правильной обуви.',
+    date: new Date(2023, 7, 7),
+    image: img1,
+  },
+  {
+    category: 'новости',
+    title: 'Наш каталог пополнился новыми коллекциями',
+    subTitle: 'С радостью сообщаем вам о расширении ассортимента.',
+    date: new Date(2023, 7, 10),
+    image: img2,
+  },
+  {
+    category: 'Обзоры',
+    title: 'Кроссовки как повседневная обувь. Плюсы и минусы',
+    subTitle: 'Рассказываем все тонкости выбора правильной обуви.',
+    date: new Date(2023, 7, 15),
+    image: img3,
+  },
+  {
+    category: 'советы',
+    title: 'Десять советов по выбору кроссовок для спорта',
+    subTitle: 'Рассказываем все тонкости выбора правильной обуви.',
+    date: new Date(2023, 8, 29),
+    image: img4,
+  },
+  {
+    category: 'советы',
+    title: 'Наш каталог пополнился новыми коллекциями',
+    subTitle: 'Рассказываем все тонкости выбора правильной обуви.',
+    date: new Date(2023, 5, 7),
+    image: img5,
+  },
+  {
+    category: 'советы',
+    title: 'Кроссовки как повседневная обувь. Плюсы и минусы',
+    subTitle: 'Рассказываем все тонкости выбора правильной обуви.',
+    date: new Date(2023, 7, 21),
+    image: img6,
+  },
+  {
+    category: 'советы',
+    title: 'Десять советов по выбору кроссовок для спорта',
+    subTitle: 'Рассказываем все тонкости выбора правильной обуви.',
+    date: new Date(2023, 9, 10),
+    image: img7,
+  },
+  {
+    category: 'советы',
+    title: 'Кроссовки как повседневная обувь. Плюсы и минусы',
+    subTitle: 'Рассказываем все тонкости выбора правильной обуви.',
+    date: new Date(2023, 10, 20),
+    image: img8,
+  },
+  {
+    category: 'советы',
+    title: 'Наш каталог пополнился новыми коллекциями',
+    subTitle: 'Рассказываем все тонкости выбора правильной обуви.',
+    date: new Date(2023, 11, 14),
+    image: img9,
+  },
+  {
+    category: 'советы',
+    title: 'Наш каталог пополнился новыми коллекциями',
+    subTitle: 'Рассказываем все тонкости выбора правильной обуви.',
+    date: new Date(2023, 7, 23),
+    image: img10,
   },
 ]
