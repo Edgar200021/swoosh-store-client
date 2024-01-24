@@ -10,7 +10,7 @@ interface Props {
 export const About = ({ className }: Props) => {
   return (
     <div className={cn('flex items-center justify-between gap-x-10 padding md-tablet:gap-x-0 md-tablet:gap-y-5 lg-phone:flex-col', className)}>
-      <div className="max-w-[785px] w-full">
+      <div className="max-w-[785px] w-full tablet:pr-[25px] phone:pr-[15px]">
         <h2 className="uppercase text-[39px] font-medium mb-7 lg-tablet:text-[24px] tablet:text-[21px] mini-phone:text-[24px]  lg-tablet:mb-4">
           Интернет-магазин
           <span className="flex items-center gap-x-7 ">

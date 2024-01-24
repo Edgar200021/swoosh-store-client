@@ -12,11 +12,10 @@ interface Props {
   className?: string
   filter?: Partial<SneakerFilter>
   withSlider?: boolean
-  sneakerVariant?: 'vertical' | 'horizontal'
 }
 
 export const SneakersList = (
-  { className, filter, withSlider, sneakerVariant }: Props = {
+  { className, filter, withSlider }: Props = {
     filter: { limit: 5 },
   }
 ) => {
@@ -24,10 +23,6 @@ export const SneakersList = (
     ...filter,
     fields: '-description -size -rating -material',
   })
-
-  console.log(withSlider)
-
-  console.log(filter?.limit)
 
   if (error) {
     if (isCustomError(error)) validateError(error)
@@ -58,7 +53,7 @@ export const SneakersList = (
       />
       {data?.data.map(sneaker => (
         <SwiperSlide key={sneaker._id}>
-          <Sneaker variant={sneakerVariant} sneaker={sneaker} />
+          <Sneaker sneaker={sneaker} />
         </SwiperSlide>
       ))}
     </Swiper>
@@ -66,12 +61,11 @@ export const SneakersList = (
     <ul
       className={cn(
         'grid grid-cols-sneaker-list gap-10 justify-items-center',
-        className,
-        { 'grid-cols-sneaker-list-horizontal': sneakerVariant === 'horizontal' }
+        className
       )}
     >
       {data?.data.map(sneaker => (
-        <Sneaker variant={sneakerVariant} key={sneaker._id} sneaker={sneaker} />
+        <Sneaker key={sneaker._id} sneaker={sneaker} />
       ))}
     </ul>
   )

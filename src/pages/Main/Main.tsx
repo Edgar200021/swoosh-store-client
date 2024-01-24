@@ -108,7 +108,7 @@ export const Main = ({ className }: Props) => {
         </div>
       </section>
 
-      <section>
+      <section className="mb-44 tablet:mb-20">
         <About />
       </section>
     </main>

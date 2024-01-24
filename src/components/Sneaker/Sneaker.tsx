@@ -14,19 +14,14 @@ import { getDayDifference } from '../../utils/date'
 
 interface Props {
   className?: string
-  variant?: 'horizontal' | 'vertical'
   sneaker: Omit<SneakerType, 'rating' | 'size' | 'material' | 'description'>
 }
 
-export const Sneaker = ({
-  className,
-  sneaker,
-  variant = 'vertical',
-}: Props) => {
+export const Sneaker = ({ className, sneaker }: Props) => {
   const dispatch = useAppDispatch()
   const favoriteProduct = getFavoriteProduct(sneaker._id)
 
-  return variant === 'vertical' ? (
+  return (
     <li
       className={cn(
         'grid grid-rows-[minmax(160px,400px),repeat(4,min-content),] max-w-[350px] min-w-[158px] gap-x-2 w-full ',
@@ -89,73 +84,6 @@ export const Sneaker = ({
           <img src={cartIcon} />
         </Button>
       </div>
-    </li>
-  ) : (
-    <li
-      className={cn(
-        'flex items-center max-w-[900px] min-w-[260px] gap-x-5 px-10 py-5 w-full relative bg-[#D9D9D9] h-[450px] ',
-        className
-      )}
-    >
-      <div className="relative max-w-[500px] max-h-[330px] h-full w-full overflow-hidden cursor-pointer">
-        <Button
-          className="absolute block max-w-full z-10  top-0 left-0 w-full h-full"
-          to={`/products/${sneaker._id}`}
-          variant="clear"
-        ></Button>
-        <img
-          className="absolute h-full object-cover rotate-45 -translate-x-20n "
-          src={sneaker.image}
-          alt={sneaker.title}
-        />
-
-        <div className="absolute left-5 top-5 flex items-center gap-x-3 text-white">
-          {sneaker.discount && (
-            <span className="bg-orange-500 p-2">{sneaker.discount}%</span>
-          )}
-          {getDayDifference(sneaker.createdAt) <= 7 && (
-            <span className="bg-black uppercase p-2">Новинка</span>
-          )}
-        </div>
-      </div>
-      <div className='space-y-[18px]'>
-        <span className="text-[#747474] text-xs uppercase tracking-[.50px] font-medium block">
-          {sneaker.for}
-        </span>
-        <span className='text-[28px]'>{sneaker.title}</span>
-        <div className="flex gap-x-2 items-center">
-          <span>Цвета:</span>
-          <ul className="flex gap-x-2">
-            {sneaker.colors.map(color => (
-              <li
-                key={color}
-                style={{ backgroundColor: color }}
-                className="w-4 h-4 rounded-full"
-              ></li>
-            ))}
-          </ul>
-        </div>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-x-3">
-            <span className="text-xl">{sneaker.price} ₽</span>
-            {!!sneaker.priceDiscount && (
-              <span className="text-[#999] line-through text-sm">
-                {sneaker.priceDiscount} ₽
-              </span>
-            )}
-          </div>
-          <Button variant="clear" className="w-[22px] h-6">
-            <img src={cartIcon} />
-          </Button>
-        </div>
-      </div>
-      <Button
-        variant="clear"
-        className="w-[22px] h-6 absolute top-5 right-5 z-20"
-        onClick={() => dispatch(addFavoriteSneaker(sneaker))}
-      >
-        <img src={favoriteProduct ? fullHearthIcon : hearthIcon} />
-      </Button>
     </li>
   )
 }

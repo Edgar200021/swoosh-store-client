@@ -30,3 +30,8 @@
     padding-left: max(15px, calc((100% - 1360px) / 2));
   }
 }
+
+.text {
+  -webkit-text-stroke: #ff6915;
+  -webkit-text-stroke-width: 1px;
+}
