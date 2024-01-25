@@ -9,3 +9,5 @@ export interface BaseApiResponse<T> {
   quantity: number
   data: T
 }
+
+

@@ -1,6 +1,6 @@
 import { LOCAL_STORAGE_ACCESS_KEY } from '../../config/constants'
 import { appApi } from '../appApi'
-import { addUser } from '../user/userSlice'
+import {addUser, deleteUser} from '../user/userSlice'
 import {
   SignUpRequest,
   AuthResponse,
@@ -19,7 +19,7 @@ export const authApi = appApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled
         dispatch(addUser(data.user))
         localStorage.setItem(LOCAL_STORAGE_ACCESS_KEY, data.accessToken)
@@ -34,7 +34,7 @@ export const authApi = appApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled
         dispatch(addUser(data.user))
         localStorage.setItem(LOCAL_STORAGE_ACCESS_KEY, data.accessToken)
@@ -44,14 +44,20 @@ export const authApi = appApi.injectEndpoints({
       query: () => ({
         url: '/auth/logout',
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+         await queryFulfilled
+        dispatch(deleteUser())
+        localStorage.removeItem(LOCAL_STORAGE_ACCESS_KEY)
+      },
     }),
 
     refresh: builder.query<AuthResponse, null>({
       query: () => ({
         url: '/auth/refresh-tokens',
       }),
-      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled
+
         dispatch(addUser(data.user))
         localStorage.setItem(LOCAL_STORAGE_ACCESS_KEY, data.accessToken)
       },
@@ -87,7 +93,7 @@ export const authApi = appApi.injectEndpoints({
 export const {
   useSignUpMutation,
   useSignInMutation,
-  useLogoutQuery,
+  useLazyLogoutQuery,
   useRefreshQuery,
   useForgotPasswordMutation,
   useResetPasswordMutation,

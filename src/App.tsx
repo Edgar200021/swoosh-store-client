@@ -6,8 +6,10 @@ import { useAppDispatch } from './store/store'
 import { addFavoriteSneakers } from './store/sneaker/sneakerSlice'
 import { Sneaker } from './store/sneaker/interfaces'
 import { localStorageApi } from './utils/localStorageApi'
+import {useRefreshQuery} from "./store/auth/authApi.ts";
 
 function App() {
+  const {isLoading} = useRefreshQuery(null)
   const dispatch = useAppDispatch()
   const { getItem } = localStorageApi(LOCAL_STORAGE_FAVORITES_KEY)
 
@@ -25,6 +27,7 @@ function App() {
     }
   }, [])
 
+  if (isLoading) return <h1>Loading...</h1>
   return <RouterProvider router={routerConfig} />
 }
 

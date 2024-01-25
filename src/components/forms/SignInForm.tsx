@@ -8,18 +8,20 @@ import { useSignInMutation } from '../../store/auth/authApi'
 import { validateError } from '../../utils/validateError'
 
 import eye from '../../assets/icons/eye.svg'
+import {useNavigate} from "react-router-dom";
 
 interface Props {
   className?: string
 }
 
 export const SignInForm = ({ className }: Props) => {
-  const { control, handleSubmit } = useForm<{
+  const { control, handleSubmit,reset } = useForm<{
     email: string
     password: string
   }>()
   const [signIn, { isLoading }] = useSignInMutation()
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
+  const navigate = useNavigate()
 
   const onSubmit: SubmitHandler<{
     email: string
@@ -30,6 +32,8 @@ export const SignInForm = ({ className }: Props) => {
         email: signInData.email,
         password: signInData.password,
       }).unwrap()
+      reset({email: "", password: ""})
+      navigate('/personal-account')
     } catch (err) {
       validateError(err)
     }

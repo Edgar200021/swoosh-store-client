@@ -48,7 +48,12 @@ export const sneakerSlice = createSlice({
       state.favoriteSneakers = action.payload
     },
   },
+  selectors: {
+    getFavoriteProducts: (state) => state.favoriteSneakers,
+  }
+
 })
 
 export const { addFavoriteSneaker, addFavoriteSneakers } = sneakerSlice.actions
+export const {getFavoriteProducts} = sneakerSlice.selectors
 export default sneakerSlice.reducer

@@ -6,11 +6,11 @@ import plusIcon from '../../assets/icons/plus.svg'
 
 import { cn } from '../../utils/cn'
 import { Button } from '../ui/Button'
-import { useAppDispatch } from '../../store/store'
+import {useAppDispatch, useAppSelector} from '../../store/store'
 import { Sneaker as SneakerType } from '../../store/sneaker/interfaces'
-import { addFavoriteSneaker } from '../../store/sneaker/sneakerSlice'
-import { getFavoriteProduct } from '../../store/sneaker/selectors'
 import { getDayDifference } from '../../utils/date'
+import {addFavoriteSneaker} from "../../store/sneaker/sneakerSlice.ts";
+import {getFavoriteProduct} from "../../store/sneaker/selectors.ts";
 
 interface Props {
   className?: string
@@ -19,7 +19,7 @@ interface Props {
 
 export const Sneaker = ({ className, sneaker }: Props) => {
   const dispatch = useAppDispatch()
-  const favoriteProduct = getFavoriteProduct(sneaker._id)
+  const favoriteProduct = useAppSelector(getFavoriteProduct(sneaker._id))
 
   return (
     <li

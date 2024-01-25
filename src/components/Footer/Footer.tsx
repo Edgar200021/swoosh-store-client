@@ -27,8 +27,8 @@ export const Footer = ({ className }: Props) => {
       className={cn('bg-[#1E1E1E] pt-[50px] pb-[33px]', className)}
     >
       <div className="container flex gap-x-40 lg-tablet:gap-x-10  gap-y-10 flex-wrap justify-between mb-[50px]">
-        <div className="max-w-[214px] lg-phone:gap-x-5  lg-phone:flex lg-phone:max-w-full lg-phone:flex-wrap lg-phone:justify-between ">
-          <div className="flex gap-x-[10px] mb-[55px] lg-phone:mb-0 ">
+        <div className="max-w-[214px] lg-phone:gap-x-5  lg-phone:flex lg-phone:max-w-full lg-phone:flex-wrap lg-phone:justify-between  ">
+          <div className="flex gap-x-[10px] mb-[55px] lg-phone:mb-6 ">
             <img
               src={footerLogo}
               className="h-[30px] w-[90px]"

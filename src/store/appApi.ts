@@ -9,7 +9,6 @@ import { Mutex } from 'async-mutex'
 import { addUser, deleteUser } from './user/userSlice'
 import { LOCAL_STORAGE_ACCESS_KEY } from '../config/constants'
 import { User } from './user/interfaces'
-import toast from 'react-hot-toast'
 
 const mutex = new Mutex()
 

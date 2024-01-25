@@ -2,6 +2,13 @@ import { UserRoles } from "./enums"
 
 export interface User {
   id: string
-  emaiL: string
-  roles: UserRoles[]
+  email: string
+  role: UserRoles[]
+  avatar?: string
+  name?: string
+}
+
+
+export interface EditUserRequest extends Partial<Pick<User, 'name' | 'email'>> {
+  avatar?: File
 }

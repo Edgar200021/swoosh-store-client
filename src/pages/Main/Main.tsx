@@ -39,7 +39,7 @@ export const Main = ({ className }: Props) => {
             Последние поступления
           </h2>
           <SneakersList
-            //withSlider={true}
+            withSlider={true}
             filter={{ sort: 'createdAt', limit: 12 }}
           />
         </div>
@@ -50,7 +50,7 @@ export const Main = ({ className }: Props) => {
             самые продаваемые
           </h2>
           <SneakersList
-            //withSlider={true}
+            withSlider={true}
             filter={{ limit: 12, sort: 'price' }}
           />
         </div>
@@ -68,7 +68,7 @@ export const Main = ({ className }: Props) => {
         </div>
       </section>
 
-      {/*<section className="overflow-hidden mb-[90px] tablet:mb-[60px]">
+      <section className="overflow-hidden mb-[90px] tablet:mb-[60px]">
         <div className=" container  relative ">
           <h2 className="max-w-[305px] font-medium text-[39px] mb-[60px] tablet:text-2xl uppercase">
             Последние публикации
@@ -89,7 +89,7 @@ export const Main = ({ className }: Props) => {
             ))}
           </Swiper>
         </div>
-      </section>*/}
+      </section>
 
       <section className="mb-[90px] tablet:mb-[60px]">
         <div className="container">

@@ -5,10 +5,12 @@ import { Footer } from '../components/Footer/Footer'
 
 export const AppLayout = () => {
   return (
-    <div className="grid grid-rows-[min-content,1fr] min-h-screen">
+    <div className="grid grid-rows-[1fr,auto] min-h-screen">
       <Header className="md-tablet:hidden" />
       <HeaderMobile className="hidden md-tablet:block" />
-      <Outlet />
+        <div>
+             <Outlet />
+        </div>
       <Footer />
     </div>
   )

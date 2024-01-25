@@ -19,8 +19,6 @@ export const ForgotPasswordPage = ({ className }: Props) => {
       const formData = new FormData(e.target as HTMLFormElement),
         data = Object.fromEntries(formData)
 
-      console.log(data)
-
       await forgotPassword(data as { email: string }).unwrap()
     } catch (err) {
       validateError(err)
@@ -28,7 +26,7 @@ export const ForgotPasswordPage = ({ className }: Props) => {
   }
 
   return (
-    <main className={cn('container pt-40', className)}>
+    <main className={cn('container pt-40 mb-44 tablet:mb-20', className)}>
       <h1 className="mb-14 text-5xl font-medium">Восстановление пароля</h1>
       <div className="max-w-[544px] mx-auto p-10 border-[1px] border-[#EAEAEA] ">
         {isSuccess === true ? (

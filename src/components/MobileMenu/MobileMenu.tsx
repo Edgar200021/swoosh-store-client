@@ -12,6 +12,9 @@ import arrowIcon from '../../assets/icons/arrow.svg'
 import { Nav } from '../Nav/Nav'
 import { useEffect, useState } from 'react'
 import { useOutsideClick } from '../../hooks/useOutsideClick'
+import sprites from "../../assets/icons/sprite.svg";
+import {useAppSelector} from "../../store/store.ts";
+import {getUser} from "../../store/user/userSlice.ts";
 
 interface Props {
   className?: string
@@ -21,6 +24,8 @@ export const MobileMenu = ({ className }: Props) => {
   const [isMounted, setIsMounted] = useState(false)
   const [isOpened, setIsOpened] = useState(false)
   const { ref } = useOutsideClick<HTMLDivElement>(closeMenu)
+  const user = useAppSelector(getUser)
+
 
   function closeMenu() {
     setIsOpened(false)
@@ -80,18 +85,28 @@ export const MobileMenu = ({ className }: Props) => {
           >
             <ProductSearch className="mb-3" collapsible={false} />
             <div className="flex items-center gap-x-2 px-3 mb-5">
-              <div className="w-3 h-4 ">
-                <img src={userIcon} alt="User" />
-              </div>
-              <div>
+              {user ? <Button
+                  to='personal-account'
+                  className='flex items-center gap-x-[10px] text-black'
+                  variant={'clear'}>
+                <svg
+                    className='w-6 h-6 opacity-90 stroke-black group-hover:stroke-white transition-colors duration-300 ease'>
+                  <use xlinkHref={`${sprites}#my-account`}/>
+                </svg>
+                Мой аккаунт
+
+              </Button> : <>
+                <div className="w-3 h-4 ">
+                  <img src={userIcon} alt="User"/>
+                </div>
                 <Button variant="clear" to="auth/sign-in">
                   Вход
                 </Button>
                 <span>\</span>
                 <Button variant="clear" to="auth/sign-up">
                   Регистрация
-                </Button>
-              </div>
+                </Button></>}
+
               <div className="flex ml-auto gap-x-8">
                 <Button className="inline-block w-full h-full" variant="clear">
                   <img className="w-4 h-4" src={hearthIcon} alt="Hearth" />

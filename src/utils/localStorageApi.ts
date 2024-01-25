@@ -9,9 +9,9 @@ export const localStorageApi = (key: string) => {
     }
   }
 
-  function setItem<T>(value: T) {
+  function setItem<T>(value: T, k?: string) {
     try {
-      localStorage.setItem(key, JSON.stringify(value))
+      localStorage.setItem(k || key, JSON.stringify(value))
     } catch (error) {
       console.log(error)
     }
