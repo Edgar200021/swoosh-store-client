@@ -1,12 +1,15 @@
-import { Swiper, SwiperSlide } from 'swiper/react'
+import {Swiper, SwiperSlide} from 'swiper/react'
 import 'swiper/css'
 
-import { SneakerFilter } from '../../store/sneaker/interfaces'
-import { useGetAllProductsQuery } from '../../store/sneaker/sneakerApi'
-import { cn } from '../../utils/cn'
-import { isCustomError, validateError } from '../../utils/validateError'
-import { Sneaker } from '../Sneaker/Sneaker'
-import { SwiperButtons } from '../ui/Button'
+import {SneakerFilter} from '../../store/sneaker/interfaces'
+import {useGetAllProductsQuery} from '../../store/sneaker/sneakerApi'
+import {cn} from '../../utils/cn'
+import {isCustomError, validateError} from '../../utils/validateError'
+import {Sneaker} from '../Sneaker/Sneaker'
+import {SwiperButtons} from '../ui/Button'
+import {getFavoriteProducts} from "../../store/sneaker/sneakerSlice.ts";
+import {useAppSelector} from "../../store/store.ts";
+import {getFavoriteProduct} from "../../store/sneaker/selectors.ts";
 
 interface Props {
   className?: string
@@ -15,11 +18,11 @@ interface Props {
 }
 
 export const SneakersList = (
-  { className, filter, withSlider }: Props = {
-    filter: { limit: 5 },
-  }
+    {className, filter, withSlider}: Props = {
+      filter: {limit: 5},
+    }
 ) => {
-  const { data, error, isLoading } = useGetAllProductsQuery({
+  const {data, error, isLoading} = useGetAllProductsQuery({
     ...filter,
     fields: '-description -size -rating -material',
   })
@@ -31,42 +34,59 @@ export const SneakersList = (
   if (isLoading) return <h1>Loading...</h1>
 
   return withSlider ? (
-    <Swiper
-      breakpoints={{
-        360: {
-          slidesPerView: 2,
-        },
-        450: {
-          slidesPerView: 3,
-          spaceBetween: 20,
-        },
-        1024: {
-          slidesPerView: 4,
-        },
-      }}
-      className="static !w-full"
-      spaceBetween={40}
-    >
-      <SwiperButtons
-        className="absolute right-8 top-8 tablet:right-[25px] phone:right-[15px]  "
-        length={data?.data.length}
-      />
-      {data?.data.map(sneaker => (
-        <SwiperSlide key={sneaker._id}>
-          <Sneaker sneaker={sneaker} />
-        </SwiperSlide>
-      ))}
-    </Swiper>
+      <Swiper
+          breakpoints={{
+            360: {
+              slidesPerView: 2,
+            },
+            450: {
+              slidesPerView: 3,
+              spaceBetween: 20,
+            },
+            1024: {
+              slidesPerView: 4,
+            },
+          }}
+          className="static !w-full"
+          spaceBetween={40}
+      >
+        <SwiperButtons
+            className="absolute right-8 top-8 tablet:right-[25px] phone:right-[15px]  "
+            length={data?.data.length}
+        />
+        {data?.data.map(sneaker => (
+            <SwiperSlide key={sneaker._id}>
+              <Sneaker sneaker={sneaker}/>
+            </SwiperSlide>
+        ))}
+      </Swiper>
   ) : (
-    <ul
-      className={cn(
-        'grid grid-cols-sneaker-list gap-10 justify-items-center',
-        className
-      )}
-    >
-      {data?.data.map(sneaker => (
-        <Sneaker key={sneaker._id} sneaker={sneaker} />
-      ))}
-    </ul>
+      <ul
+          className={cn(
+              'grid grid-cols-sneaker-list gap-10 justify-items-center',
+              className
+          )}
+      >
+        {data?.data.map(sneaker => (
+            <Sneaker key={sneaker._id} sneaker={sneaker}/>
+        ))}
+      </ul>
   )
 }
+
+export const FavoriteSneakerList = ({className}: Pick<Props, 'className'>) => {
+  const favoriteProducts = useAppSelector(getFavoriteProducts)
+
+
+  return <ul
+      className={cn(
+          'grid grid-cols-sneaker-list gap-10 justify-items-center',
+          className
+      )}
+  >
+    {favoriteProducts.map(sneaker => (
+        <Sneaker key={sneaker._id} sneaker={sneaker}/>
+    ))}
+  </ul>
+}
+

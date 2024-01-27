@@ -12,6 +12,7 @@ import {EditUserProfilePage} from "../pages/EditUserProfile/EditUserProfilePage.
 import {OrdersPage} from "../pages/OrdersPage/OrdersPage.tsx";
 import {AddressPage} from "../pages/AddressPage.tsx";
 import {ChangePasswordPage} from "../pages/ChangePassword/ChangePasswordPage.tsx";
+import {FavoriteProductsPage} from "../pages/FavoriteProducts/FavoriteProductsPage.tsx";
 
 export const routerConfig = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ export const routerConfig = createBrowserRouter([
           {
             path: 'change-password',
             element: <ChangePasswordPage className='lg-tablet:shrink-0 flex-grow '/>
+          },
+          {
+            path: 'favorite-products',
+            element: <FavoriteProductsPage className='flex-grow shrink-0'/>
           },
         ]
       }
