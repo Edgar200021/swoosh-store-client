@@ -1,7 +1,7 @@
 import sprites from '../../assets/icons/sprite.svg'
 import {cn} from "../../utils/cn.ts";
 import {Button} from "../ui/Button.tsx";
-import {ComponentProps, MutableRefObject, useRef, useState, DragEvent, memo} from "react";
+import { ComponentProps, MutableRefObject, useRef, useState, DragEvent, memo, } from 'react'
 
 interface Props extends ComponentProps<'input'> {
     className?: string
@@ -12,9 +12,9 @@ interface Props extends ComponentProps<'input'> {
 export const FileUploader = memo(({className, shareFile, supportedFiles = ['JPEG', "PNG", "AVIF", 'SVG'], ...otherProps}: Props) => {
     const [dragActive, setDragActive] = useState(false)
     const ref = useRef<HTMLInputElement>()
-
-
-    function handleOpenFile() {
+ 
+    
+    function handleOpenFile()  {
         ref.current?.click()
     }
 

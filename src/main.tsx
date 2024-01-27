@@ -6,8 +6,9 @@ import { store } from './store/store.ts'
 import { Toaster } from 'react-hot-toast'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <Provider store={store}>
-    <App />
-    <Toaster position="top-right" />
-  </Provider>
+	<Provider store={store}>
+	
+			<App />
+		<Toaster position='top-right' />
+	</Provider>
 )

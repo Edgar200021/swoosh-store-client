@@ -9,27 +9,28 @@ import {ProtectedRoute} from "../pages/ProtectedRoutes/ProtectedRoute.tsx";
 import {UserRoles} from "../store/user/enums.ts";
 import {PersonalAccountLayout} from "../layouts/PersonalAccountLayout.tsx";
 import {EditUserProfilePage} from "../pages/EditUserProfile/EditUserProfilePage.tsx";
+import {OrdersPage} from "../pages/OrdersPage/OrdersPage.tsx";
 
 export const routerConfig = createBrowserRouter([
   {
     path: '/',
-    element: <AppLayout />,
+    element: <AppLayout/>,
     children: [
       {
         index: true,
-        element: <Main />,
+        element: <Main/>,
       },
       {
         path: 'auth/sign-up',
-        element: <SignUpPage />,
+        element: <SignUpPage/>,
       },
       {
         path: 'auth/sign-in',
-        element: <SignInPage />,
+        element: <SignInPage/>,
       },
       {
         path: 'auth/forgot-password',
-        element: <ProtectedRoute role={[UserRoles.USER]}> <ForgotPasswordPage /></ProtectedRoute>
+        element: <ProtectedRoute role={[UserRoles.USER]}> <ForgotPasswordPage/></ProtectedRoute>
       },
       {
         path: 'auth/reset-password',
@@ -42,12 +43,12 @@ export const routerConfig = createBrowserRouter([
         children: [
           {
             path: 'personal-account',
-            element:<EditUserProfilePage />
+            element: <EditUserProfilePage className='lg-tablet:shrink-0'/>
           },
 
           {
             path: 'orders',
-            element: <h1>Orders</h1>
+            element: <OrdersPage className='flex-grow lg-tablet:shrink-0'/>
           }
         ]
       }

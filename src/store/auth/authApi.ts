@@ -1,5 +1,5 @@
-import { LOCAL_STORAGE_ACCESS_KEY } from '../../config/constants'
-import { appApi } from '../appApi'
+import {LOCAL_STORAGE_ACCESS_KEY} from '../../config/constants'
+import {appApi} from '../appApi'
 import {addUser, deleteUser} from '../user/userSlice'
 import {
   SignUpRequest,
@@ -19,8 +19,8 @@ export const authApi = appApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        const { data } = await queryFulfilled
+      async onQueryStarted(_, {dispatch, queryFulfilled}) {
+        const {data} = await queryFulfilled
         dispatch(addUser(data.user))
         localStorage.setItem(LOCAL_STORAGE_ACCESS_KEY, data.accessToken)
       },
@@ -34,8 +34,8 @@ export const authApi = appApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        const { data } = await queryFulfilled
+      async onQueryStarted(_, {dispatch, queryFulfilled}) {
+        const {data} = await queryFulfilled
         dispatch(addUser(data.user))
         localStorage.setItem(LOCAL_STORAGE_ACCESS_KEY, data.accessToken)
       },
@@ -44,8 +44,8 @@ export const authApi = appApi.injectEndpoints({
       query: () => ({
         url: '/auth/logout',
       }),
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-         await queryFulfilled
+      async onQueryStarted(_, {dispatch, queryFulfilled}) {
+        await queryFulfilled
         dispatch(deleteUser())
         localStorage.removeItem(LOCAL_STORAGE_ACCESS_KEY)
       },
@@ -55,8 +55,8 @@ export const authApi = appApi.injectEndpoints({
       query: () => ({
         url: '/auth/refresh-tokens',
       }),
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        const { data } = await queryFulfilled
+      async onQueryStarted(_, {dispatch, queryFulfilled}) {
+        const {data} = await queryFulfilled
 
         dispatch(addUser(data.user))
         localStorage.setItem(LOCAL_STORAGE_ACCESS_KEY, data.accessToken)

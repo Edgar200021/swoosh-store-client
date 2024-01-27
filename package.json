@@ -24,7 +24,8 @@
     "swiper": "^11.0.5",
     "tailwind-merge": "^2.2.0",
     "validator": "^13.11.0",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+	  "@react-buddy/ide-toolbox": "^2.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
