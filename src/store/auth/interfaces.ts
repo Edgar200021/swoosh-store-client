@@ -1,4 +1,4 @@
-import { User } from '../user/interfaces'
+import {User} from '../user/interfaces'
 
 export interface AuthResponse {
   user: User
@@ -18,4 +18,8 @@ export interface SignInRequest {
 
 export interface ResetPasswordRequest extends SignUpRequest {
   passwordResetToken: string
+}
+
+export interface ChangePasswordRequest extends Pick<SignUpRequest, 'password' | 'passwordConfirm'> {
+  oldPassword: string
 }

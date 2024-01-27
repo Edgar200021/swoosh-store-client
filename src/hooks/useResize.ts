@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react'
+import {useEffect, useState} from 'react'
 
 export const useResize = <T extends HTMLElement>(
-  element: React.MutableRefObject<T | null>
+    element: React.MutableRefObject<T | null>,
+    screenWidth?: boolean
 ) => {
   const [width, setWidth] = useState(0)
 
   useEffect(() => {
     const cb = (entries: ResizeObserverEntry[]) => {
       const [entry] = entries
-      setWidth(entry.target.clientWidth)
+      setWidth(screenWidth ? entry.target.closest('html')!.clientWidth : entry.target.clientWidth)
     }
 
     let observerRefValue: null | HTMLElement = null
@@ -25,7 +26,7 @@ export const useResize = <T extends HTMLElement>(
         resizeObserver.unobserve(observerRefValue)
       }
     }
-  }, [])
+  }, [element])
 
   return width
 }

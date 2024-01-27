@@ -10,6 +10,8 @@ import {UserRoles} from "../store/user/enums.ts";
 import {PersonalAccountLayout} from "../layouts/PersonalAccountLayout.tsx";
 import {EditUserProfilePage} from "../pages/EditUserProfile/EditUserProfilePage.tsx";
 import {OrdersPage} from "../pages/OrdersPage/OrdersPage.tsx";
+import {AddressPage} from "../pages/AddressPage.tsx";
+import {ChangePasswordPage} from "../pages/ChangePassword/ChangePasswordPage.tsx";
 
 export const routerConfig = createBrowserRouter([
   {
@@ -49,7 +51,15 @@ export const routerConfig = createBrowserRouter([
           {
             path: 'orders',
             element: <OrdersPage className='flex-grow lg-tablet:shrink-0'/>
-          }
+          },
+          {
+            path: 'addresses',
+            element: <AddressPage className='flex-grow '/>
+          },
+          {
+            path: 'change-password',
+            element: <ChangePasswordPage className='lg-tablet:shrink-0 flex-grow '/>
+          },
         ]
       }
     ],

@@ -17,7 +17,7 @@ export const AccountNavbar = ({className}: Props) => {
   const [logout, {isLoading}] = useLazyLogoutQuery()
   const [collapsed, setCollapsed] = useState(false)
   const ref = useRef<HTMLElement | null>(null)
-  const width = useResize(ref)
+  const width = useResize(ref, true)
 
 
   if (isLoading) return <h1>Loading...</h1>
@@ -29,7 +29,7 @@ export const AccountNavbar = ({className}: Props) => {
         <Button onClick={() => setCollapsed(prev => !prev)} variant='clear'
                 className=' w-full border-[1px] mb-5 font-medium text-[13px] uppercase p-5 hidden border-[#EAEAEA] border-solid md-phone:block'>{!collapsed ? 'Открыть ' : 'Закрыть '}
           меню кабинета</Button>
-        <Collapsible collapsed={width <= 410 ? collapsed : true}
+        <Collapsible collapsed={width <= 460 ? collapsed : true}
         >
           <aside>
             <ul
@@ -47,6 +47,7 @@ export const AccountNavbar = ({className}: Props) => {
                         className='w-6 h-6 opacity-90 stroke-[#C7C7C7] group-hover:stroke-white transition-colors duration-300 ease'>
                       <use xlinkHref={icon}/>
                     </svg>
+
                     {label}
                   </Button>
                 </li>

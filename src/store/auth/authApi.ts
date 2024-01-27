@@ -5,7 +5,7 @@ import {
   SignUpRequest,
   AuthResponse,
   SignInRequest,
-  ResetPasswordRequest,
+  ResetPasswordRequest, ChangePasswordRequest,
 } from './interfaces'
 
 export const authApi = appApi.injectEndpoints({
@@ -87,6 +87,17 @@ export const authApi = appApi.injectEndpoints({
         },
       }),
     }),
+
+    changePassword: builder.mutation<unknown, ChangePasswordRequest>({
+      query: body => ({
+        url: `/auth/change-password`,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 })
 
@@ -97,4 +108,5 @@ export const {
   useRefreshQuery,
   useForgotPasswordMutation,
   useResetPasswordMutation,
+  useChangePasswordMutation
 } = authApi
