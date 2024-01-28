@@ -3,13 +3,14 @@ import 'swiper/css'
 
 import {SneakerFilter} from '../../store/sneaker/interfaces'
 import {useGetAllProductsQuery} from '../../store/sneaker/sneakerApi'
-import {cn} from '../../utils/cn'
-import {isCustomError, validateError} from '../../utils/validateError'
+import {cn} from '../../helpers/cn'
+import {isCustomError, validateError} from '../../helpers/validateError'
 import {Sneaker} from '../Sneaker/Sneaker'
-import {SwiperButtons} from '../ui/Button'
+import {Button, SwiperButtons} from '../ui/Button'
 import {getFavoriteProducts} from "../../store/sneaker/sneakerSlice.ts";
 import {useAppSelector} from "../../store/store.ts";
-import {getFavoriteProduct} from "../../store/sneaker/selectors.ts";
+
+import emptyFavoriteIcon from '../../assets/icons/empty-favorites.svg'
 
 interface Props {
   className?: string
@@ -77,16 +78,21 @@ export const SneakersList = (
 export const FavoriteSneakerList = ({className}: Pick<Props, 'className'>) => {
   const favoriteProducts = useAppSelector(getFavoriteProducts)
 
-
-  return <ul
+  return favoriteProducts.length ? <ul
       className={cn(
-          'grid grid-cols-sneaker-list gap-10 justify-items-center',
+          'grid grid-cols-sneaker-list-favorite gap-10 justify-items-center',
           className
       )}
   >
-    {favoriteProducts.map(sneaker => (
-        <Sneaker key={sneaker._id} sneaker={sneaker}/>
-    ))}
-  </ul>
+    {favoriteProducts.map(sneaker => <Sneaker key={sneaker._id} sneaker={sneaker}/>)}
+  </ul> : <div className='max-w-[650px] mx-auto flex flex-col items-center justify-center text-center gap-y-5'>
+    <img className='w-[100px] h-22' src={emptyFavoriteIcon}
+         alt='Empty favorites'/>
+    <span className='text-[35px] font-medium md-tablet:text-[19px]'> Ваш список желаний пуст</span>
+    <span className='font-bold text-[15px] text=[#383838] md-tablet:text-[13px]'>У вас пока нет товаров в списке желаний.<br/>На странице "Каталог" вы найдете много интересных товаров.</span>
+    <Button className='max-w-[270px]' to='/products' color='orange'> Перейти в каталог</Button>
+  </div>
+
+
 }
 

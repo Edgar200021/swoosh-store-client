@@ -1,5 +1,5 @@
-import { BaseFilter } from '../../types/types'
-import { For, Materials } from './enums'
+import {BaseFilter} from '../../types/types'
+import {For, Materials} from './enums'
 
 export interface Sneaker {
   _id: string
@@ -32,4 +32,12 @@ export interface SneakerFilter extends BaseFilter {
   'rating<': number
   'rating>': number
   rating: number
+}
+
+export interface SneakerFilterResponse {
+  minPrice: number
+  maxPrice: number
+  colors: string[]
+  size: number[]
+  material: Materials[]
 }

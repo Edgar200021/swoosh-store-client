@@ -10,9 +10,10 @@ import {UserRoles} from "../store/user/enums.ts";
 import {PersonalAccountLayout} from "../layouts/PersonalAccountLayout.tsx";
 import {EditUserProfilePage} from "../pages/EditUserProfile/EditUserProfilePage.tsx";
 import {OrdersPage} from "../pages/OrdersPage/OrdersPage.tsx";
-import {AddressPage} from "../pages/AddressPage.tsx";
+import {AddressPage} from "../pages/Address/AddressPage.tsx";
 import {ChangePasswordPage} from "../pages/ChangePassword/ChangePasswordPage.tsx";
 import {FavoriteProductsPage} from "../pages/FavoriteProducts/FavoriteProductsPage.tsx";
+import {SneakersPage} from "../pages/Sneakers/SneakerPage.tsx";
 
 export const routerConfig = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ export const routerConfig = createBrowserRouter([
       {
         path: 'auth/reset-password',
         element: <ProtectedRoute role={[UserRoles.USER]}> <ResetPasswordPage/></ProtectedRoute>,
+      },
+      {
+        path: '/products',
+        element: <SneakersPage/>
       },
       {
         element: <ProtectedRoute role={[UserRoles.USER]}>

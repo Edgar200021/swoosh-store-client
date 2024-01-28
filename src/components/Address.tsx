@@ -1,4 +1,4 @@
-import {cn} from "../utils/cn.ts";
+import {cn} from "../helpers/cn.ts";
 
 import sprites from '../assets/icons/sprite.svg'
 import deleteIcon from '../assets/icons/delete.svg'

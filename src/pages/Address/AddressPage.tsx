@@ -1,5 +1,5 @@
-import {cn} from "../utils/cn.ts";
-import {AddressList} from "../components/Lists/AddressList.tsx";
+import {cn} from "../../helpers/cn.ts";
+import {AddressList} from "../../components/Lists/AddressList.tsx";
 
 interface Props {
   className?: string

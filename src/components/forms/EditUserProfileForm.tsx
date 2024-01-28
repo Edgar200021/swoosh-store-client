@@ -1,9 +1,9 @@
 import {useForm, Controller, SubmitHandler} from 'react-hook-form'
 
-import {cn} from '../../utils/cn'
+import {cn} from '../../helpers/cn'
 import {Input} from '../ui/Input'
 import {Button} from '../ui/Button'
-import {validateError} from '../../utils/validateError'
+import {validateError} from '../../helpers/validateError'
 
 import {editAccountSchema, EditAccountSchema} from "../../schemas/editAccountSchema.ts";
 import {useUpdateUserMutation} from "../../store/user/userApi.ts";

@@ -1,11 +1,11 @@
 import {useForm, Controller, SubmitHandler} from 'react-hook-form'
 import {useState} from 'react'
 
-import {cn} from '../../utils/cn'
+import {cn} from '../../helpers/cn'
 import {Input} from '../ui/Input'
 import {Button} from '../ui/Button'
 import {useChangePasswordMutation} from '../../store/auth/authApi'
-import {validateError} from '../../utils/validateError'
+import {validateError} from '../../helpers/validateError'
 
 import eye from '../../assets/icons/eye.svg'
 import {changePasswordSchema, ChangePasswordSchema} from "../../schemas/сhangePasswordSchema.ts";

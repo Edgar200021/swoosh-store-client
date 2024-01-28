@@ -1,5 +1,5 @@
 import {ComponentProps, MouseEventHandler, useEffect, useState} from 'react'
-import {cn} from '../../utils/cn'
+import {cn} from '../../helpers/cn'
 import {NavLink} from 'react-router-dom'
 import {useSwiper} from 'swiper/react'
 

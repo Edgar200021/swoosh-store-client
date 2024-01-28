@@ -1,4 +1,4 @@
-import {cn} from "../../utils/cn.ts";
+import {cn} from "../../helpers/cn.ts";
 import {Address} from "../Address.tsx";
 
 interface Props {

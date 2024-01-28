@@ -1,4 +1,4 @@
-import {cn} from "../../utils/cn.ts";
+import {cn} from "../../helpers/cn.ts";
 import {OrdersList} from "../../components/Lists/OrdersList.tsx";
 
 interface Props {

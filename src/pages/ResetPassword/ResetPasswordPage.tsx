@@ -1,4 +1,4 @@
-import {cn} from '../../utils/cn'
+import {cn} from '../../helpers/cn'
 
 import {ResetPasswordForm} from '../../components/Forms/ResetPasswordForm'
 
