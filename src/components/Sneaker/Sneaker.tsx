@@ -1,5 +1,4 @@
 import cartIcon from '../../assets/icons/cart.svg'
-import cartAddIcon from '../../assets/cart-add.svg'
 import hearthIcon from '../../assets/icons/hearth.svg'
 import fullHearthIcon from '../../assets/icons/full-hearth.svg'
 import plusIcon from '../../assets/icons/plus.svg'
@@ -24,7 +23,7 @@ export const Sneaker = ({className, sneaker}: Props) => {
   return (
       <li
           className={cn(
-              'grid grid-rows-[minmax(160px,400px),repeat(4,min-content),] max-w-[350px] min-w-[158px] gap-x-2 w-full ',
+              'grid grid-rows-[minmax(160px,400px),repeat(4,min-content)] max-w-[350px] min-w-[158px] gap-x-2 w-full ',
               className
           )}
       >

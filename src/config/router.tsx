@@ -55,19 +55,19 @@ export const routerConfig = createBrowserRouter([
           },
 
           {
-            path: 'orders',
+            path: 'personal-account/orders',
             element: <OrdersPage className='flex-grow lg-tablet:shrink-0'/>
           },
           {
-            path: 'addresses',
+            path: 'personal-account/addresses',
             element: <AddressPage className='flex-grow '/>
           },
           {
-            path: 'change-password',
+            path: 'personal-account/change-password',
             element: <ChangePasswordPage className='lg-tablet:shrink-0 flex-grow '/>
           },
           {
-            path: 'favorite-products',
+            path: 'personal-account/favorite-products',
             element: <FavoriteProductsPage className='flex-grow shrink-0'/>
           },
         ]

@@ -10,7 +10,7 @@ export const FavoriteProductsPage = ({className}: Props) => {
   return (
       <main className={cn('', className)}>
         <h2 className='text-[28px] font-medium mb-[30px]'>Избранные товары</h2>
-        <FavoriteSneakerList/>
+        <FavoriteSneakerList className='justify-items-start'/>
       </main>
   );
 };

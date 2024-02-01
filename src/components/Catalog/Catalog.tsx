@@ -52,6 +52,7 @@ export const Catalog = ({className}: Props) => {
                                 className="hover:text-orange-500 transition-colors ease duration-300"
                                 variant="clear"
                                 to="/products"
+                                onClick={() => setIsOpened(false)}
                             >
                               {value}
                             </Button>

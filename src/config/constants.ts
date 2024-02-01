@@ -17,7 +17,6 @@ import sprites from '../assets/icons/sprite.svg'
 
 export const LOCAL_STORAGE_ACCESS_KEY = 'accessToken'
 export const LOCAL_STORAGE_FAVORITES_KEY = 'favorites'
-
 export const CATALOG = [
   {
     label: 'лето',
@@ -146,12 +145,25 @@ export const PUBLICATIONS = [
     image: img10
   }
 ]
-
 export const ACCOUNT_NAVBAR = [
   {to: '/personal-account', icon: `${sprites}#user-edit`, label: 'Редактировать профиль'},
-  {to: 'orders', icon: `${sprites}#my-orders`, label: 'Мои заказы'},
-  {to: 'addresses', icon: `${sprites}#address`, label: 'Мой адрес'},
-  {to: 'favorite-products', icon: `${sprites}#favorite-products`, label: 'Избранные товары'},
-  {to: 'change-password', icon: `${sprites}#change-password`, label: 'Сменить пароль'},
+  {to: '/personal-account/orders', icon: `${sprites}#my-orders`, label: 'Мои заказы'},
+  {to: '/personal-account/addresses', icon: `${sprites}#address`, label: 'Мой адрес'},
+  {to: '/personal-account/favorite-products', icon: `${sprites}#favorite-products`, label: 'Избранные товары'},
+  {to: '/personal-account/change-password', icon: `${sprites}#change-password`, label: 'Сменить пароль'},
   {to: '/', icon: `${sprites}#logout`, label: 'Выйти из аккаунта'}
 ]
+export const FILTER_LIMIT = [
+  {name: "filter", value: 9},
+  {name: "filter", value: 12},
+  {name: "filter", value: 18},
+  {name: "filter", value: 24},
+]
+
+export const SNEAKER_SORT = [
+{label: 'Цена по убыванию', value: '-price'},
+  {label: 'Цена по возрастанию', value: 'price'},
+  {label: 'Рейтинг по убыванию', value: '-rating'},
+  {label: 'Рейтинг по возрастанию', value: 'rating'},
+]
+

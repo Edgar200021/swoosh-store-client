@@ -1,6 +1,7 @@
 import {BaseFilter} from '../../types/types'
 import {For, Materials} from './enums'
 
+
 export interface Sneaker {
   _id: string
   image: string
@@ -24,7 +25,7 @@ export interface SneakerFilter extends BaseFilter {
   'price<': number
   'price>': number
   price: number
-  color: string
+  colors: string
   size: string
   material: Materials
   'rating>=': number
@@ -32,6 +33,7 @@ export interface SneakerFilter extends BaseFilter {
   'rating<': number
   'rating>': number
   rating: number
+  for: 'детей' | 'мужчин' | 'женщин'
 }
 
 export interface SneakerFilterResponse {

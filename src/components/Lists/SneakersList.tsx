@@ -2,7 +2,7 @@ import {Swiper, SwiperSlide} from 'swiper/react'
 import 'swiper/css'
 
 import {SneakerFilter} from '../../store/sneaker/interfaces'
-import {useGetAllProductsQuery} from '../../store/sneaker/sneakerApi'
+import {useGetAllProductsQuery, usePrefetch} from '../../store/sneaker/sneakerApi'
 import {cn} from '../../helpers/cn'
 import {isCustomError, validateError} from '../../helpers/validateError'
 import {Sneaker} from '../Sneaker/Sneaker'
@@ -11,28 +11,39 @@ import {getFavoriteProducts} from "../../store/sneaker/sneakerSlice.ts";
 import {useAppSelector} from "../../store/store.ts";
 
 import emptyFavoriteIcon from '../../assets/icons/empty-favorites.svg'
+import {Paginate} from "@/components/Paginate/Paginate.tsx";
 
 interface Props {
   className?: string
   filter?: Partial<SneakerFilter>
   withSlider?: boolean
+  withPaginate?: boolean
 }
 
 export const SneakersList = (
-    {className, filter, withSlider}: Props = {
-      filter: {limit: 5},
-    }
+    {className, filter, withSlider, withPaginate}: Props
 ) => {
-  const {data, error, isLoading} = useGetAllProductsQuery({
+
+  const {data, error, isLoading, isFetching} = useGetAllProductsQuery({
     ...filter,
     fields: '-description -size -rating -material',
   })
+  const prefetchProducts = usePrefetch('getAllProducts')
+
+  const handlePrefetch = (page: number) => {
+     prefetchProducts({ ...filter,
+       fields: '-description -size -rating -material',
+       page})
+  }
+
 
   if (error) {
     if (isCustomError(error)) validateError(error)
   }
 
-  if (isLoading) return <h1>Loading...</h1>
+ if (!data) return null
+ if (isLoading) return <h1>Loading...</h1>
+
 
   return withSlider ? (
       <Swiper
@@ -55,13 +66,14 @@ export const SneakersList = (
             className="absolute right-8 top-8 tablet:right-[25px] phone:right-[15px]  "
             length={data?.data.length}
         />
-        {data?.data.map(sneaker => (
+        {data.data.map(sneaker => (
             <SwiperSlide key={sneaker._id}>
               <Sneaker sneaker={sneaker}/>
             </SwiperSlide>
         ))}
       </Swiper>
   ) : (
+      <>
       <ul
           className={cn(
               'grid grid-cols-sneaker-list gap-10 justify-items-center',
@@ -72,6 +84,8 @@ export const SneakersList = (
             <Sneaker key={sneaker._id} sneaker={sneaker}/>
         ))}
       </ul>
+        {withPaginate && <Paginate disabled={isLoading || isFetching} prefetch={handlePrefetch} initialPage={filter?.page} totalQuantity={data.quantity} limit={filter?.limit || 18} className='pt-10 mb-20 gap-x-2 '/> }
+        </>
   )
 }
 

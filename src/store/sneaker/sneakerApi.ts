@@ -27,4 +27,4 @@ const sneakerApi = appApi.injectEndpoints({
   }),
 })
 
-export const {useGetAllProductsQuery, useGetFiltersQuery} = sneakerApi
+export const {useGetAllProductsQuery, useGetFiltersQuery, usePrefetch} = sneakerApi
