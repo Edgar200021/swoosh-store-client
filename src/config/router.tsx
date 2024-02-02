@@ -14,6 +14,8 @@ import {AddressPage} from "../pages/Address/AddressPage.tsx";
 import {ChangePasswordPage} from "../pages/ChangePassword/ChangePasswordPage.tsx";
 import {FavoriteProductsPage} from "../pages/FavoriteProducts/FavoriteProductsPage.tsx";
 import {SneakersPage} from "../pages/Sneakers/SneakerPage.tsx";
+import {CartPage} from "@/pages/Cart/CartPage.tsx";
+import {SneakerPage} from "@/pages/Sneaker/SneakerPage.tsx";
 
 export const routerConfig = createBrowserRouter([
   {
@@ -42,7 +44,12 @@ export const routerConfig = createBrowserRouter([
       },
       {
         path: '/products',
-        element: <SneakersPage/>
+        element: <SneakersPage/>,
+
+      },
+      {
+      path: '/products/:id',
+       element: <SneakerPage/>
       },
       {
         element: <ProtectedRoute role={[UserRoles.USER]}>
@@ -71,7 +78,13 @@ export const routerConfig = createBrowserRouter([
             element: <FavoriteProductsPage className='flex-grow shrink-0'/>
           },
         ]
+      },
+      { element: <ProtectedRoute role={[UserRoles.USER]}>
+          <CartPage/>
+        </ProtectedRoute>,
+        path: 'cart'
       }
+
     ],
   },
 ])

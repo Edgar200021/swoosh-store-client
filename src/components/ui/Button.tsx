@@ -1,4 +1,4 @@
-import {ComponentProps, MouseEventHandler, useEffect, useState} from 'react'
+import {ComponentProps, MouseEventHandler, ReactElement, useEffect, useState} from 'react'
 import {cn} from '../../helpers/cn'
 import {NavLink} from 'react-router-dom'
 import {useSwiper} from 'swiper/react'
@@ -16,11 +16,12 @@ interface Props extends ComponentProps<'button'> {
   color?: 'orange' | 'black'
   variant?: keyof typeof buttonVariants
   to?: string
+  icon?: ReactElement
 }
 
 
 export const Button = ({
-                         className, children, color = 'black', variant = 'primary', to, ...otherProps
+                         className, children, color = 'black', variant = 'primary', to,icon, ...otherProps
                        }: Props) => {
   if (variant === 'primary') {
     return !to ? (
@@ -35,7 +36,8 @@ export const Button = ({
               data-decor
               className='absolute w-[65px] h-full  right-0 top-0 flex justify-center items-center text-white bg-black text-3xl'
           >
-          &#8594;
+            {icon ? icon :  <span>&#8594;</span> }
+
         </span>
         </button>
     ) : (

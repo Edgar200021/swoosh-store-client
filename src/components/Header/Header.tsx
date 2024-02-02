@@ -70,7 +70,7 @@ export const Header = ({className}: Props) => {
                 <Button
                     className="hover:-translate-y-1 inline-block  transition-transform duration-300 ease"
                     variant="clear"
-                    to="products?for=men"
+                    to="products?for=мужчин"
                 >
                   Мужские
                 </Button>
@@ -79,7 +79,7 @@ export const Header = ({className}: Props) => {
                 <Button
                     className="hover:-translate-y-1 inline-block transition-transform duration-300 ease"
                     variant="clear"
-                    to="products?for=women"
+                    to="products?for=женщин"
                 >
                   Женские
                 </Button>
@@ -88,7 +88,7 @@ export const Header = ({className}: Props) => {
                 <Button
                     className="hover:-translate-y-1 inline-block  transition-transform duration-300 ease"
                     variant="clear"
-                    to="products?for=kids"
+                    to="products?for=детей"
                 >
                   Детские
                 </Button>
@@ -114,6 +114,7 @@ export const Header = ({className}: Props) => {
               <Button
                   className="inline-block w-full h-full border-r-[1px]"
                   variant="clear"
+                  to='/cart'
               >
                 <img className="w-4 h-4" src={cart} alt="User"/>
               </Button>

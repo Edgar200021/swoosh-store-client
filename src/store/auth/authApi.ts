@@ -1,12 +1,7 @@
 import {LOCAL_STORAGE_ACCESS_KEY} from '../../config/constants'
 import {appApi} from '../appApi'
 import {addUser, deleteUser} from '../user/userSlice'
-import {
-  SignUpRequest,
-  AuthResponse,
-  SignInRequest,
-  ResetPasswordRequest, ChangePasswordRequest,
-} from './interfaces'
+import {AuthResponse, ChangePasswordRequest, ResetPasswordRequest, SignInRequest, SignUpRequest,} from './interfaces'
 
 export const authApi = appApi.injectEndpoints({
   endpoints: builder => ({
@@ -55,6 +50,7 @@ export const authApi = appApi.injectEndpoints({
       query: () => ({
         url: '/auth/refresh-tokens',
       }),
+
       async onQueryStarted(_, {dispatch, queryFulfilled}) {
         const {data} = await queryFulfilled
 

@@ -41,6 +41,7 @@ module.exports = {
         'lg-desktop': { max: '1400px' },
         'md-desktop': { max: '1360px' },
         desktop: { max: '1279px' },
+        'mini-desktop': {max: '1120px'},
         'lg-tablet': { max: '1024px' },
         'md-tablet': { max: '800px' },
         tablet: { max: '772px' },

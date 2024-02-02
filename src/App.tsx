@@ -29,8 +29,8 @@ function App() {
   }, [])
 
 
+  if (isLoading) return <Loader/>
   return <>
-    {isLoading && <Loader/>}
     <RouterProvider router={routerConfig}/>
   </>
 }

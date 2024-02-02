@@ -1,10 +1,4 @@
-import {
-  BaseQueryFn,
-  FetchArgs,
-  FetchBaseQueryError,
-  createApi,
-  fetchBaseQuery,
-} from '@reduxjs/toolkit/query/react'
+import {BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError,} from '@reduxjs/toolkit/query/react'
 import {Mutex} from 'async-mutex'
 import {addUser, deleteUser} from './user/userSlice'
 import {LOCAL_STORAGE_ACCESS_KEY} from '../config/constants'
@@ -82,4 +76,6 @@ export const appApi = createApi({
   reducerPath: 'api',
   baseQuery: customBaseQuery,
   endpoints: builder => ({}),
+  tagTypes: ['cart']
+
 })

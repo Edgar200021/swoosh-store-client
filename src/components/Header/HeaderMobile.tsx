@@ -1,18 +1,22 @@
 import {cn} from '../../helpers/cn'
 
-import user from '../../assets/icons/user.svg'
+import userIcon from '../../assets/icons/user.svg'
 import logo from '../../assets/icons/logo.svg'
 import hearth from '../../assets/icons/hearth.svg'
 import cart from '../../assets/icons/cart.svg'
 
 import {Button} from '../ui/Button'
 import {MobileMenu} from '../MobileMenu/MobileMenu'
+import {useAppSelector} from "@/store/store.ts";
+import {getUser} from "@/store/user/userSlice.ts";
 
 interface Props {
   className?: string
 }
 
 export const HeaderMobile = ({className}: Props) => {
+  const user = useAppSelector(getUser)
+
   return (
       <header
           className={cn('h-mobile-header w-full fixed backdrop-blur-xl z-50', className)}
@@ -31,17 +35,19 @@ export const HeaderMobile = ({className}: Props) => {
             <div
                 className="ml-auto [&>*]:px-4 [&>*]:py-5 [&>*]:border-solid [&>*]:border-[#EAEAEA] [&>*]:border-l-[1px]  flex items-center shrink-0 order-3">
               <Button
+                  to={user ? 'personal-account' : 'auth/sign-in'}
                   className="inline-block w-full h-full border-r-[1px] phone:hidden"
                   variant="clear"
               >
-                <img className="w-4 h-4" src={user} alt="User"/>
+                <img className="w-4 h-4" src={userIcon} alt="User"/>
               </Button>
-              <Button className="inline-block w-full h-full" variant="clear">
+              <Button  className="inline-block w-full h-full" variant="clear">
                 <img className="w-4 h-4" src={hearth} alt="Hearth"/>
               </Button>
               <Button
                   className="inline-block w-full h-full border-r-[1px]"
                   variant="clear"
+                  to='/cart'
               >
                 <img className="w-4 h-4" src={cart} alt="User"/>
               </Button>

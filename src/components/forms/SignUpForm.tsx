@@ -1,4 +1,4 @@
-import {useForm, Controller, SubmitHandler} from 'react-hook-form'
+import {Controller, SubmitHandler, useForm} from 'react-hook-form'
 import toast from 'react-hot-toast'
 
 import {cn} from '../../helpers/cn'
@@ -12,6 +12,7 @@ import {validateError} from '../../helpers/validateError'
 import eye from '../../assets/icons/eye.svg'
 import {useState} from 'react'
 import {Collapsible} from '../Collapsible/Collapsible'
+import {useNavigate} from "react-router-dom";
 
 interface Props {
   className?: string
@@ -22,7 +23,7 @@ export const SignUpForm = ({className}: Props) => {
     control,
     register,
     handleSubmit,
-    formState: {errors},
+    formState: {errors}
   } = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
   })
@@ -31,6 +32,7 @@ export const SignUpForm = ({className}: Props) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
       useState(false)
+  const navigate = useNavigate()
 
   const onSubmit: SubmitHandler<SignUpSchema> = async signUpData => {
     try {
@@ -43,6 +45,7 @@ export const SignUpForm = ({className}: Props) => {
       toast.success('Регистрация прошла успешно', {
         duration: 3000,
       })
+      navigate('/auth/sign-in')
     } catch (err) {
       validateError(err)
     }

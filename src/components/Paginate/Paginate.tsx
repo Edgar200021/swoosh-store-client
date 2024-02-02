@@ -38,7 +38,7 @@ export const Paginate = memo(({className, totalQuantity, limit, disabled, initia
 		return () => link!.removeEventListener('mouseenter', handler)
 	}, [currentPage, pageCount])
 
-
+	if (pageCount === 1) return null
 	return <div ref={ref as MutableRefObject<HTMLDivElement>}>
 		<ReactPaginate
 				onPageChange={onChange}

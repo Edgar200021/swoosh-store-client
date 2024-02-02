@@ -13,7 +13,19 @@ const sneakerApi = appApi.injectEndpoints({
       query: filters => ({
         url: '/products',
         params: {...filters},
+
       }),
+
+    }),
+
+    getProduct: builder.query<
+            Sneaker ,
+        Sneaker['_id']
+    >({
+      query: id => ({
+        url: `/products/${id}`,
+      }),
+
     }),
 
     getFilters: builder.query<
@@ -27,4 +39,4 @@ const sneakerApi = appApi.injectEndpoints({
   }),
 })
 
-export const {useGetAllProductsQuery, useGetFiltersQuery, usePrefetch} = sneakerApi
+export const {useGetAllProductsQuery, useGetFiltersQuery, useGetProductQuery, usePrefetch} = sneakerApi

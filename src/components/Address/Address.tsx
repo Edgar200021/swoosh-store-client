@@ -1,9 +1,9 @@
-import {cn} from "../helpers/cn.ts";
+import {cn} from "../../helpers/cn.ts";
 
-import sprites from '../assets/icons/sprite.svg'
-import deleteIcon from '../assets/icons/delete.svg'
-import penIcon from '../assets/icons/pen.svg'
-import {Button} from "./ui/Button.tsx";
+import sprites from '../../assets/icons/sprite.svg'
+import deleteIcon from '../../assets/icons/delete.svg'
+import penIcon from '../../assets/icons/pen.svg'
+import {Button} from "../ui/Button.tsx";
 
 interface Props {
   className?: string
