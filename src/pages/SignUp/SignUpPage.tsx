@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom'
-import {SignUpForm} from '../../components/Forms/SignUpForm'
+import {SignUpForm} from '@/components/Forms/SignUpForm'
 import {cn} from '../../helpers/cn'
 import {AccountExist} from '../../components/AccountExist/AccountExist'
 

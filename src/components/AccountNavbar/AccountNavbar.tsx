@@ -1,4 +1,4 @@
-import {ACCOUNT_NAVBAR} from '../../config/constants.ts'
+import {ACCOUNT_NAVBAR} from '../../config/constants.tsx'
 import {useLazyLogoutQuery} from '../../store/auth/authApi.ts'
 import {cn} from '../../helpers/cn.ts'
 

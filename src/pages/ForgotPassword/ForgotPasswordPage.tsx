@@ -1,4 +1,4 @@
-import {ForgotPasswordForm} from '../../components/Forms/ForgotPasswordForm'
+import {ForgotPasswordForm} from '@/components/Forms/ForgotPasswordForm'
 import {useForgotPasswordMutation} from '../../store/auth/authApi'
 import {cn} from '../../helpers/cn'
 

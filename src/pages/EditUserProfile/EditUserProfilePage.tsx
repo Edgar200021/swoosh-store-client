@@ -1,4 +1,4 @@
-import {EditUserProfileForm} from "../../components/Forms/EditUserProfileForm.tsx";
+import {EditUserProfileForm} from "@/components/Forms/EditUserProfileForm.tsx";
 import {cn} from "../../helpers/cn.ts";
 
 interface Props {

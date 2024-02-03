@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import {Button} from '../ui/Button'
 import {cn} from '../../helpers/cn'
-import {CATALOG} from '../../config/constants'
+import {CATALOG} from '../../config/constants.tsx'
 import {Collapsible} from '../Collapsible/Collapsible'
 
 import img from '../../assets/img/new-collection/img-1.jpg'

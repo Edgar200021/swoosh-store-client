@@ -36,7 +36,7 @@ export const HeaderMobile = ({className}: Props) => {
                 className="ml-auto [&>*]:px-4 [&>*]:py-5 [&>*]:border-solid [&>*]:border-[#EAEAEA] [&>*]:border-l-[1px]  flex items-center shrink-0 order-3">
               <Button
                   to={user ? 'personal-account' : 'auth/sign-in'}
-                  className="inline-block w-full h-full border-r-[1px] phone:hidden"
+                  className="inline-block w-full h-full border-r-[1px] md-phone:hidden"
                   variant="clear"
               >
                 <img className="w-4 h-4" src={userIcon} alt="User"/>

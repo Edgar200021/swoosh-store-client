@@ -3,16 +3,17 @@ import {CartSneakerList, SneakersList} from "@/components/Lists/SneakersList.tsx
 import {Input} from "@/components/ui/Input.tsx";
 import {Button} from "@/components/ui/Button.tsx";
 import {useCallback, useMemo, useState} from "react";
-import {EmptyCart} from "@/components/EmptyCart/EmptyCart.tsx";
+import {Notification} from "@/components/Notification/Notification.tsx";
 
 
 interface Props {
 	className?: string
 }
 export const CartPage = ({className}: Props) => {
-	const [totalPrice, setTotalPrice] = useState<number | null>(0)
+	const [totalPrice, setTotalPrice] = useState<number>(0)
+	const [isError, setIsError] = useState(false)
 
-	const handleTotalPrice = useCallback((totalPrice: number | null)  => {
+	const handleTotalPrice = useCallback((totalPrice: number)  => {
 			setTotalPrice(totalPrice)
 	},[])
 
@@ -22,9 +23,9 @@ export const CartPage = ({className}: Props) => {
 		<section className="pb-[90px] mb-[60px]">
 			<h1 className='font-medium text-5xl mb-10'>Корзина товаров</h1>
 
-			{totalPrice === null ? <EmptyCart/>
+			{isError ? <Notification className='max-w-[350px]' variant='error'/> : !totalPrice ? <Notification variant='basket'/>
 									: <div className="flex gap-x-5 gap-y-14 justify-between items-start mini-desktop:flex-col relative">
-						<CartSneakerList onTotalPrice={handleTotalPrice} className='max-w-5xl w-full grow '/>
+						<CartSneakerList onError={setIsError}  onTotalPrice={handleTotalPrice} className='max-w-5xl w-full grow '/>
 						<div className='bg-gray-300/30 p-5 pt-7 grow-0 max-w-xs w-full sticky top-32 right-0 mini-desktop:max-w-full'>
 				<span className="block text-[#1d1d27] text-[28px] font-medium mb-6">
 					Итого
@@ -43,7 +44,7 @@ export const CartPage = ({className}: Props) => {
 			}
 		</section>
 
-			{totalPrice != null && <section className='relative'>
+			{!!totalPrice && !isError  && <section className='relative'>
 				<h2 className='text-[45px] font-medium mb-10 max-w-[400px]'>Возможно вас заинтересует</h2>
 				<SneakersList filter={{...productsLimit}} withSlider={true}/>
 			</section>}

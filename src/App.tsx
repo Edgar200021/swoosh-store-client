@@ -1,6 +1,6 @@
 import {RouterProvider} from 'react-router-dom'
 import {routerConfig} from './config/router'
-import {LOCAL_STORAGE_FAVORITES_KEY} from './config/constants'
+import {LOCAL_STORAGE_FAVORITES_KEY} from './config/constants.tsx'
 import {useEffect} from 'react'
 import {useAppDispatch} from './store/store'
 import {addFavoriteSneakers} from './store/sneaker/sneakerSlice'

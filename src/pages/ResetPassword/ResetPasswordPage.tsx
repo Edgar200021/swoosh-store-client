@@ -1,6 +1,6 @@
 import {cn} from '../../helpers/cn'
 
-import {ResetPasswordForm} from '../../components/Forms/ResetPasswordForm'
+import {ResetPasswordForm} from '@/components/Forms/ResetPasswordForm'
 
 interface Props {
   className?: string

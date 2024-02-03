@@ -298,7 +298,7 @@ interface CartProps extends CartSneakerType  {
 
 export const CartSneaker = ({className, _id, size,color,quantity,title,price,image, isLoading}: CartProps) => {
   const [qty, setQty] = useState(quantity)
-  const debouncedValue = useDebounce(qty)
+  const debouncedValue = useDebounce(qty, 500)
   const [updateQuantity, {isLoading: isUpdateLoading}]= useUpdateCartProductMutation()
   const [deleteCartProducts, {isLoading: isDeleteLoading}] = useDeleteCartProductMutation()
 

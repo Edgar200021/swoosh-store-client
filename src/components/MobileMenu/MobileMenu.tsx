@@ -2,7 +2,7 @@ import {cn} from '../../helpers/cn'
 import {ProductSearch} from '../ProductSearch/ProductSearch'
 import {Button} from '../ui/Button'
 
-import {CATALOG} from '../../config/constants'
+import {CATALOG} from '../../config/constants.tsx'
 import {Collapsible} from '../Collapsible/Collapsible'
 
 import userIcon from '../../assets/icons/user.svg'

@@ -1,9 +1,9 @@
-import {SwiperSlide, Swiper} from 'swiper/react'
+import {Swiper, SwiperSlide} from 'swiper/react'
 import {Benefit} from '../../components/Benefit/Benefit'
 import {Hero} from '../../components/Hero/Hero'
 import {SneakersList} from '../../components/Lists/SneakersList'
 import {HitSneaker} from '../../components/Sneaker/Sneaker'
-import {BENEFITS, PUBLICATIONS} from '../../config/constants'
+import {BENEFITS, PUBLICATIONS} from '../../config/constants.tsx'
 import {cn} from '../../helpers/cn'
 
 import {Publication} from '../../components/Publication/Publication'

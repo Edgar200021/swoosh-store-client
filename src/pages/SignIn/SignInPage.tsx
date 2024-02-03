@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom'
 import {cn} from '../../helpers/cn'
 import {AccountExist} from '../../components/AccountExist/AccountExist'
-import {SignInForm} from '../../components/Forms/SignInForm'
+import {SignInForm} from '@/components/Forms/SignInForm'
 
 interface Props {
   className?: string

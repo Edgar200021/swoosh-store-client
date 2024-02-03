@@ -1,4 +1,4 @@
-import {LOCAL_STORAGE_ACCESS_KEY} from '../../config/constants'
+import {LOCAL_STORAGE_ACCESS_KEY} from '../../config/constants.tsx'
 import {appApi} from '../appApi'
 import {addUser, deleteUser} from '../user/userSlice'
 import {AuthResponse, ChangePasswordRequest, ResetPasswordRequest, SignInRequest, SignUpRequest,} from './interfaces'

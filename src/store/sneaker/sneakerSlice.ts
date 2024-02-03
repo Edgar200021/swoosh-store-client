@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Sneaker } from './interfaces'
-import { LOCAL_STORAGE_FAVORITES_KEY } from '../../config/constants'
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {Sneaker} from './interfaces'
+import {LOCAL_STORAGE_FAVORITES_KEY} from '../../config/constants.tsx'
 
 const initialState: {
   favoriteSneakers: Omit<

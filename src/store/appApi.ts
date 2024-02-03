@@ -1,7 +1,7 @@
 import {BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError,} from '@reduxjs/toolkit/query/react'
 import {Mutex} from 'async-mutex'
 import {addUser, deleteUser} from './user/userSlice'
-import {LOCAL_STORAGE_ACCESS_KEY} from '../config/constants'
+import {LOCAL_STORAGE_ACCESS_KEY} from '../config/constants.tsx'
 import {User} from './user/interfaces'
 
 const mutex = new Mutex()

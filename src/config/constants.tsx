@@ -14,6 +14,11 @@ import img9 from '../assets/img/publications/img9.jpg'
 import img10 from '../assets/img/publications/img10.jpg'
 
 import sprites from '../assets/icons/sprite.svg'
+import emptyCartIcon from "@/assets/icons/empty-cart.svg";
+import emptyFavoriteIcon from "@/assets/icons/empty-favorites.svg";
+import dangerIcon from '@/assets/icons/dangerIcon.svg'
+import emptyProductIcon from '@/assets/icons/empty-products.svg'
+import {ReactElement} from "react";
 
 export const LOCAL_STORAGE_ACCESS_KEY = 'accessToken'
 export const LOCAL_STORAGE_FAVORITES_KEY = 'favorites'
@@ -166,4 +171,17 @@ export const SNEAKER_SORT = [
   {label: 'Рейтинг по убыванию', value: '-rating'},
   {label: 'Рейтинг по возрастанию', value: 'rating'},
 ]
+
+
+export const NOTIFICATIONS:Record<string, {supText: string, subText: ReactElement, icon: string, to?: string}> = {
+      basket: {
+        supText: "Ваша корзина на данный момент пуста",
+        subText: <span className='font-[15px] mb-[30px] max-w-[670px] tablet:text-sm tablet:mb-5'>Прежде чем приступить к оформлению заказа, вы должны добавить некоторые товары в корзину. На странице <b>"Каталог"</b> вы найдете много интересных товаров.</span>,
+      icon: emptyCartIcon,
+        to: "/products"
+    },
+    favorite: {supText: "Ваш список желаний пуст", subText: <span className='font-[15px] mb-[30px] max-w-[670px] tablet:text-sm tablet:mb-5'>У вас пока нет товаров в списке желаний.На странице <b>"Каталог"</b> вы найдете много интересных товаров.</span>, icon: emptyFavoriteIcon, to: "/products"},
+    error: {supText: "Что-то пошло не так" , subText: <span className='font-[15px] mb-[30px] max-w-[670px] tablet:text-sm tablet:mb-5'>Произошла непредвиденная ошибка.<b>Попробуйте</b> чуть позже.</span>, icon: dangerIcon},
+    product: {supText: "Товары отсуствуют" , subText: <span className='font-[15px] mb-[30px] max-w-[670px] tablet:text-sm tablet:mb-5'>На данный момент на складе пусто. Возвращайтесь чуть позже</span>, icon: emptyProductIcon, to: "/"}
+}
 

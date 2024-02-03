@@ -1,5 +1,5 @@
 import {cn} from "../../helpers/cn.ts";
-import {ChangePasswordForm} from "../../components/Forms/ChangePasswordForm.tsx";
+import {ChangePasswordForm} from "@/components/Forms/ChangePasswordForm.tsx";
 
 interface Props {
   className?: string

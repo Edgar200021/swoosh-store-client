@@ -4,28 +4,28 @@ import 'swiper/css'
 import {SneakerFilter} from '../../store/sneaker/interfaces'
 import {useGetAllProductsQuery, usePrefetch} from '../../store/sneaker/sneakerApi'
 import {cn} from '../../helpers/cn'
-import {isCustomError, validateError} from '../../helpers/validateError'
 import {CartSneaker, Sneaker} from '../Sneaker/Sneaker'
-import {Button, SwiperButtons} from '../ui/Button'
+import {SwiperButtons} from '../ui/Button'
 import {getFavoriteProducts} from "../../store/sneaker/sneakerSlice.ts";
 import {useAppSelector} from "../../store/store.ts";
-
-import emptyFavoriteIcon from '../../assets/icons/empty-favorites.svg'
 import {Paginate} from "@/components/Paginate/Paginate.tsx";
 import {useGetCartProductsQuery} from "@/store/cart/cartApi.ts";
 import {useGetSearchParams} from "@/hooks/useGetSearchParams.ts";
 import {Loader} from "@/components/ui/Loader.tsx";
 import {memo, useEffect} from "react";
+import {Notification} from "@/components/Notification/Notification.tsx";
+import {SneakerSkeleton} from "@/components/Skeletons/Skeletons.tsx";
 
 interface Props {
   className?: string
   filter?: Partial<SneakerFilter>
   withSlider?: boolean
   withPaginate?: boolean
+  onError?: (isError: boolean) => void
 }
 
 export const SneakersList = memo((
-    {className, filter, withSlider, withPaginate}: Props
+    {className, filter, withSlider, withPaginate, onError}: Props
 ) => {
 
   const {data, error, isLoading, isFetching} = useGetAllProductsQuery({
@@ -40,12 +40,12 @@ export const SneakersList = memo((
        page}, )
   }
 
+  if (isLoading) return  <Loader/>
+  if (error || !data)   if (error || !data) return onError?.(true) || <Notification className='max-w-[350px]' variant='error'/>
 
-  if (error) {
-    if (isCustomError(error)) validateError(error)
-  }
-  if (isLoading) return <h1>Loading...</h1>
-  if (!data) return null
+  console.log(data.data.length)
+
+  if (!data.data.length) return <Notification variant='product' subText={filter && Object.keys(filter).filter(k => k !== 'limit').length ? <span className='font-[15px] mb-[30px] max-w-[670px] tablet:text-sm tablet:mb-5'>По вашему запросу товары не были найдены.Попробуйте изменить параметры поиска</span> : undefined }  className='max-w-[350px]'/>
 
 
   return withSlider ? (
@@ -71,7 +71,7 @@ export const SneakersList = memo((
         />
         {data.data.map(sneaker => (
             <SwiperSlide key={sneaker._id}>
-              <Sneaker sneaker={sneaker}/>
+              {isFetching ? <SneakerSkeleton/> : <Sneaker sneaker={sneaker}/>}
             </SwiperSlide>
         ))}
       </Swiper>
@@ -83,9 +83,10 @@ export const SneakersList = memo((
               className
           )}
       >
-        {data?.data.map(sneaker => (
-            <Sneaker key={sneaker._id} sneaker={sneaker}/>
-        ))}
+        {isFetching ? <SneakerSkeleton/> : data.data.map(sneaker => (
+          <Sneaker key={sneaker._id} sneaker={sneaker}/>
+      )) }
+
       </ul>
         {withPaginate && <Paginate disabled={isLoading || isFetching} prefetch={handlePrefetch} initialPage={filter?.page} totalQuantity={data.quantity} limit={filter?.limit || 18} className='pt-10 mb-20 gap-x-2 '/> }
         </>
@@ -102,38 +103,31 @@ export const FavoriteSneakerList = ({className}: Pick<Props, 'className'>) => {
       )}
   >
     {favoriteProducts.map(sneaker => <Sneaker key={sneaker._id} sneaker={sneaker}/>)}
-  </ul> : <div className='max-w-[650px] mx-auto flex flex-col items-center justify-center text-center gap-y-5'>
-    <img className='w-[100px] h-22' src={emptyFavoriteIcon}
-         alt='Empty favorites'/>
-    <span className='text-[35px] font-medium md-tablet:text-[19px]'> Ваш список желаний пуст</span>
-    <span className='font-bold text-[15px] text=[#383838] md-tablet:text-[13px]'>У вас пока нет товаров в списке желаний.<br/>На странице "Каталог" вы найдете много интересных товаров.</span>
-    <Button className='max-w-[270px]' to='/products' color='orange'> Перейти в каталог</Button>
-  </div>
+  </ul> : <Notification className='max-w-[450px]' variant='favorite'/>
 }
 
 
 
 interface ICartSneakerList {
   className?: string
-  onTotalPrice?: (totalPrice: number | null) => void
+  onTotalPrice?: (totalPrice: number) => void
+  onError?: (error: boolean) => void
 }
 
-export const CartSneakerList = memo(({className, onTotalPrice}: ICartSneakerList) => {
+export const CartSneakerList = memo(({className, onTotalPrice, onError}: ICartSneakerList) => {
   const filterObj = useGetSearchParams('size',  'limit', 'page', 'sort')
   const {data, isLoading, error, isFetching}  = useGetCartProductsQuery(filterObj)
 
   useEffect(() => {
     if (!onTotalPrice || !data) return
-    if (!data.data.cartProducts.length) onTotalPrice(null)
+
     onTotalPrice(data.data.totalPrice)
   }, [data, onTotalPrice]);
 
-  if (error) {
-    if (isCustomError(error)) validateError(error)
-  }
+
   if (isLoading) return <Loader/>
-  if (!data) return null
- if (!data.data.cartProducts.length) return <h1>Нет товаров</h1>
+  if (error || !data) return onError?.(true) || <Notification className='max-w-[350px]' variant='error'/>
+ if (!data.data.cartProducts.length) return <Notification variant='basket'/>
 
   return <div className={cn('border-[1px] border-[#EAEAEA]', className, {
     'opacity-50': isFetching

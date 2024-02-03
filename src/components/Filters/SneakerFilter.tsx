@@ -5,16 +5,19 @@ import Slider from 'react-slider'
 import {useCallback, useState} from "react";
 import {Button} from "@/components/ui/Button.tsx";
 import {Input} from "@/components/ui/Input.tsx";
-import {FILTER_LIMIT, SNEAKER_SORT} from "@/config/constants.ts";
+import {FILTER_LIMIT, SNEAKER_SORT} from "@/config/constants.tsx";
 import {useSearchParams} from "react-router-dom";
 import {SortBy} from "@/components/SortBy/SortBy.tsx";
+import {Loader} from "@/components/ui/Loader.tsx";
+import {Notification} from "@/components/Notification/Notification.tsx";
 
 interface Props {
   className?: string
+  onError?:(isError: boolean) => void
 }
 
-export const SneakerFilter = ({className}: Props) => {
-  const {data} = useGetFiltersQuery(null)
+export const SneakerFilter = ({className, onError}: Props) => {
+  const {data, isLoading, error} = useGetFiltersQuery(null)
   const [searchParams, setSearchParams ] = useSearchParams()
   const [filters, setFilters] = useState({
     price: [data?.minPrice || 0, data?.maxPrice || 500],
@@ -41,7 +44,9 @@ export const SneakerFilter = ({className}: Props) => {
      })
   }
 
-  if (!data) return
+
+  if (isLoading) return <Loader/>
+  if (!data || error) return onError?.(true) || <Notification className='max-w-[350px]' variant='error'/>
 
   const size = [...data.size].sort((a, b) => a - b)
 
@@ -105,9 +110,9 @@ export const SneakerFilter = ({className}: Props) => {
         </div>
         </div>
         <div className='flex  items-center justify-between container gap-5 flex-wrap '>
-          <div className='flex items-center gap-x-3'>
-            <span>Показывать по:</span>
-            <div className='flex gap-x-3'>
+          <div className='flex items-center gap-x-3 mini-phone:gap-x-1'>
+            <span className='whitespace-nowrap'>Показывать по:</span>
+            <div className='flex gap-x-3 phone:gap-x-1 '>
               {FILTER_LIMIT.map(({name, value }) => {
                 const limit = Number(searchParams.get('limit')) || 18
 
@@ -124,7 +129,7 @@ export const SneakerFilter = ({className}: Props) => {
             </div>
 
           </div>
-          <div className='flex gap-x-20 items-center justify-between'><span>Сортировка:</span>
+          <div className='flex gap-x-20 items-center justify-between md-phone:gap-x-10 phone:gap-x-4 mini-phone:gap-x-1'><span>Сортировка:</span>
             <SortBy className='min-w-[200px]' values={SNEAKER_SORT}/>
           </div>
         </div>
