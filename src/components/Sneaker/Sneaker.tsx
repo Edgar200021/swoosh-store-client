@@ -14,7 +14,7 @@ import {CartSneaker as CartSneakerType} from "@/store/cart/interfaces.ts";
 import {getDayDifference} from '../../helpers/date'
 import {addFavoriteSneaker} from "../../store/sneaker/sneakerSlice.ts";
 import {getFavoriteProduct} from "../../store/sneaker/selectors.ts";
-import {ChangeEvent, useEffect, useState} from "react";
+import {ChangeEvent, createContext, useContext, useEffect, useState} from "react";
 import {
   useAddCartProductMutation,
   useDeleteCartProductMutation,
@@ -173,10 +173,14 @@ export const HitSneaker = ({
 }
 
 
+
+const SingleSneakerContext = createContext<Partial<SneakerType> | null>(null)
+
 interface SingleProps extends SneakerType {
   className?: string
+  children?: ReactNode
 }
-export const SingleSneaker = ({className,_id,title,discount,price,image, priceDiscount,for: forWho,colors,createdAt,rating,size,material,description}: SingleProps) => {
+export const SingleSneaker = ({children, className,_id,title,discount,price,image, priceDiscount,for: forWho,colors,createdAt,rating,size,material,description}: SingleProps) => {
   const [properties, setProperties] = useState({
     color: '',
     size: '',
@@ -202,113 +206,202 @@ export const SingleSneaker = ({className,_id,title,discount,price,image, priceDi
     }
   }
 
+  return <SingleSneakerContext.Provider value={{material,for: forWho,_id, title,price,image,priceDiscount,colors,createdAt,rating,size,discount, description}}>
+    <div className={cn("container grid grid-cols-2 justify-between gap-x-[50px] lg-tablet:gap-x-6 tablet:grid-cols-1 tablet:gap-x-0 tablet:gap-y-10", className)}>
+      <div className='max-h-[450px] min-h-[339px] h-full relative p-6 md-phone:p-3'>
+        <img src={image} alt={title} className="absolute inset-0 h-full object-cover -z-10"/>
+        <div className="flex items-center justify-between gap-x-5 w-full">
+          <div className="flex items-center gap-x-3 text-white">
+            {discount && (
+                <span className="bg-orange-500 p-2">{discount}%</span>
+            )}
+            {getDayDifference(createdAt) <= 7 && (
+                <span className="bg-black uppercase p-2">Новинка</span>
+            )}
+          </div>
 
-  return  <div className={cn("container grid grid-cols-2 justify-between gap-x-[50px]", className)}>
-    <div className='max-h-[450px] min-h-[339px] h-full relative p-6' >
-      <img src={image} alt={title} className="absolute inset-0 h-full object-cover -z-10"/>
-      <div className="flex items-center justify-between gap-x-5 w-full">
-        <div className="flex items-center gap-x-3 text-white">
-          {discount && (
-              <span className="bg-orange-500 p-2">{discount}%</span>
-          )}
-          {getDayDifference(createdAt) <= 7 && (
-              <span className="bg-black uppercase p-2">Новинка</span>
-          )}
+          <Button
+              variant="clear"
+              className="block w-[22px] h-6 "
+              onClick={() => dispatch(addFavoriteSneaker({
+                _id,
+                title,
+                discount,
+                price,
+                image,
+                priceDiscount,
+                for: forWho,
+                colors,
+                createdAt
+              }))}
+          >
+            <img alt='hearth' src={favoriteProduct ? fullHearthIcon : hearthIcon}/>
+          </Button>
+
         </div>
-
-        <Button
-            variant="clear"
-            className="block w-[22px] h-6 "
-            onClick={() => dispatch(addFavoriteSneaker({
-              _id,
-              title,
-              discount,
-              price,
-              image,
-              priceDiscount,
-              for: forWho,
-              colors,
-              createdAt
-            }))}
-        >
-          <img alt='hearth' src={favoriteProduct ? fullHearthIcon : hearthIcon}/>
-        </Button>
-
       </div>
-    </div>
-    <div>
-      <h1 className='text-5xl font-medium max-w-[640px] mb-4'>{title}</h1>
-      <p className='text-[#4b4b4b] mb-16'>{description}</p>
-      <div className='flex items-center gap-x-2 mb-10'>
-        <span>Цвета:</span>
-        <ul className='flex items-center translate-y-[2px] gap-x-1'>{colors.map(c => <li className={cn('flex items-center justify-center rounded-full', {
-          'border-solid border-[1px] border-[#a1a1a1] w-6 h-6': properties.color === c
-        })}  key={c}>
-          <label style={{backgroundColor: c}} className={cn('cursor-pointer min-w-4 max-w-full h-4 block rounded-full ', {'': properties.color === c})}>
-            <Input value={c} name='color' onChange={onPropertiesChange} type='radio' className='appearance-none hidden'/>
-          </label>
-        </li>)}</ul>
-      </div>
-      <div className='mb-10'>
-        <div className="flex items-center justify-between mb-4">
-          <span>Размер (EU):</span>
-          <Button variant='clear' className='underline'>Размерная таблица</Button>
-        </div>
-
-        <ul className='flex gap-[10px] flex-wrap'>
-          {size.map(s => <li key={s}>
-            <label className={cn('w-[82px] h-[45px] transition-colors duration-300 ease border-[1px] border-[#efefef] cursor-pointer flex items-center justify-center', {'bg-black text-white': properties.size == s})}>
-              <Input value={s} className='appearance-none hidden' name='size' type='radio' onChange={onPropertiesChange}/>
-              {s}
+      <div>
+        <h1 className='text-5xl font-medium max-w-[640px] mb-4 tablet:text-[25px]'>{title}</h1>
+        <p className='text-[#4b4b4b] mb-16'>{description}</p>
+        <div className='flex items-center gap-x-2 mb-10 md-phone:mb-6'>
+          <span>Цвета:</span>
+          <ul className='flex items-center translate-y-[2px] gap-x-1'>{colors.map(c => <li
+              className={cn('flex items-center justify-center rounded-full', {
+                'border-solid border-[1px] border-[#a1a1a1] w-6 h-6': properties.color === c
+              })} key={c}>
+            <label style={{backgroundColor: c}}
+                   className={cn('cursor-pointer min-w-4 max-w-full h-4 block rounded-full ', {'': properties.color === c})}>
+              <Input value={c} name='color' onChange={onPropertiesChange} type='radio'
+                     className='appearance-none hidden'/>
             </label>
-          </li>)}
-        </ul>
-
-      </div>
-      <div className='flex items-center gap-x-3 mb-10'>
-        {!!priceDiscount &&
-            <span className='line-through text-[#999] text-xl'>{price} ₽</span>
-        }
-        <span className='text-3xl'>{priceDiscount ? priceDiscount.toFixed(2) : price} ₽</span>
-      </div>
-      <div className="max-w-[468px] flex gap-x-[30px] items-center h-[73px] mb-10 ">
-        <div className='flex border-[1px] border-[#e9edf2] h-full'>
-          <Button onClick={() => {
-            if (properties.quantity <= 1) return
-            setProperties(prev => ({...prev, quantity: prev.quantity - 1}))
-          }}  className='px-4  w-8 flex items-center justify-center border-r-[1px] border-r-[#EAEAEA] border-solid' variant='clear'>-</Button>
-          <span className='border-r-[1px] border-r-[#EAEAEA] flex items-center justify-center w-10'>{properties.quantity}</span>
-          <Button onClick={() =>  setProperties(prev => ({...prev, quantity: prev.quantity + 1})) } className='px-4 w-8 flex items-center justify-center ' variant='clear'>+</Button>
+          </li>)}</ul>
         </div>
-        <Button disabled={isLoading || !(properties.color && properties.size)} className='disabled:opacity-50' onClick={onAddCartProduct} icon={<svg className='w-4 h-4'>
-          <use xlinkHref={`${sprites}#cart`} className='stroke-white'></use>
-        </svg>}>Добавить в корзину
-        </Button>
+        <div className='mb-10'>
+          <div className="flex items-center justify-between mb-4">
+            <span>Размер (EU):</span>
+            <Button variant='clear' className='underline'>Размерная таблица</Button>
+          </div>
 
+          <ul className='flex gap-[10px] flex-wrap'>
+            {size.map(s => <li key={s}>
+              <label
+                  className={cn('w-[82px] h-[45px] tablet:w-[53px] md-phone:w-[75px] transition-colors duration-300 ease border-[1px] border-[#efefef] cursor-pointer flex items-center justify-center', {'bg-black text-white': properties.size == s})}>
+                <Input value={s} className='appearance-none hidden' name='size' type='radio'
+                       onChange={onPropertiesChange}/>
+                {s}
+              </label>
+            </li>)}
+          </ul>
+
+        </div>
+        <div className='flex items-center gap-x-3 mb-10 lg-tablet:hidden'>
+          {!!priceDiscount &&
+              <span className='line-through text-[#999] text-xl'>{price} ₽</span>
+          }
+          <span className='text-3xl'>{priceDiscount ? priceDiscount.toFixed(2) : price} ₽</span>
+        </div>
+        <div
+            className="max-w-[468px] flex gap-x-[30px] items-center h-[73px] lg-tablet:h-auto mb-10 lg-tablet:flex-wrap lg-tablet:gap-y-4 ">
+          <div className=' items-center gap-x-3 hidden lg-tablet:flex md-phone:flex-col md-phone:items-start'>
+            {!!priceDiscount &&
+                <span className='line-through text-[#999] text-xl'>{price} ₽</span>
+            }
+            <span className='text-3xl'>{priceDiscount ? priceDiscount.toFixed(2) : price} ₽</span>
+          </div>
+          <div className='flex border-[1px] border-[#e9edf2] lg-tablet:h-[73px]'>
+            <Button onClick={() => {
+              if (properties.quantity <= 1) return
+              setProperties(prev => ({...prev, quantity: prev.quantity - 1}))
+            }} className='px-4  w-8 flex items-center justify-center border-r-[1px] border-r-[#EAEAEA] border-solid'
+                    variant='clear'>-</Button>
+            <span
+                className='border-r-[1px] border-r-[#EAEAEA] flex items-center justify-center w-10'>{properties.quantity}</span>
+            <Button onClick={() => setProperties(prev => ({...prev, quantity: prev.quantity + 1}))}
+                    className='px-4 w-8 flex items-center justify-center ' variant='clear'>+</Button>
+          </div>
+          <Button disabled={isLoading || !(properties.color && properties.size)} className='disabled:opacity-50'
+                  onClick={onAddCartProduct} icon={<svg className='w-4 h-4'>
+            <use xlinkHref={`${sprites}#cart`} className='stroke-white'></use>
+          </svg>}>Добавить в корзину
+          </Button>
+
+        </div>
+        {children}
       </div>
     </div>
-  </div>
+  </SingleSneakerContext.Provider>
 
 }
 
-interface CartProps extends CartSneakerType  {
+const SingleSneakerDescription = ({className}: { className?: string }) => {
+
+  return <div className={cn('text-[15px] text-[#4b4b4b]', className)}>
+    <span className="block mb-5 md-phone:mb-3">Кроссовки Nike Air VaporMax 2023 Flyknit с поддерживающей амортизацией, созданной для плавного бега, представляет собой совершенно новый взгляд на знакомую коллекцию.
+    </span>
+    <span className="block mb-5 md-phone:mb-3">Модель VaporMax названа в честь команды "Portland Trail Blazers". Впервые модель появилась на площадках в 1972 году.Сейчас это уже классика lifestyle от Nike.
+    </span>
+    <ul className='flex flex-col gap-y-4 md-phone:gap-y-2'>
+      <li>— натуральная кожа для верха кроссовок</li>
+      <li>— укрепляющие вставки из натуральной замши</li>
+      <li>— контрастный swoosh</li>
+      <li>— прямая шнуровка</li>
+      <li>— нейлоновый язычок с необработанным краем</li>
+    </ul>
+  </div>
+
+}
+const SingleSneakerCharacteristics = ({className}: { className?: string }) => {
+  const {for: forWho, material} = useSingleSneaker()
+
+  return <ul className={cn('text-[15px] flex flex-col gap-y-3', className)}>
+    <li className='grid grid-cols-[max-content,1fr,max-content] items-center gap-x-2'>
+      <span>Пол</span>
+      <span className='h-[1px] border-dashed border-b-[1px] border-b-[#d1d1d1] '></span>
+      <span
+          className='text-[#686767]'>{forWho === 'мужчин' ? 'Мужское' : forWho === 'женщин' ? 'Женское' : 'Детское'}</span>
+    </li>
+    <li className='grid grid-cols-[max-content,1fr,max-content] items-center gap-x-2'>
+      <span>Страна</span>
+      <span className='h-[1px] border-dashed border-b-[1px] border-b-[#d1d1d1] '></span>
+      <span
+          className='text-[#686767]'>Америка</span>
+    </li>
+    <li className='grid grid-cols-[max-content,1fr,max-content] items-center gap-x-2'>
+      <span>Состав</span>
+      <span className='h-[1px] border-dashed border-b-[1px] border-b-[#d1d1d1] '></span>
+      <span
+          className='text-[#686767]'>{material}</span>
+    </li>
+    <li className='grid grid-cols-[max-content,1fr,max-content] items-center gap-x-2'>
+      <span>Коллекция</span>
+      <span className='h-[1px] border-dashed border-b-[1px] border-b-[#d1d1d1] '></span>
+      <span
+          className='text-[#686767]'>Air Max</span>
+    </li>
+    <li className='grid grid-cols-[max-content,1fr,max-content] items-center gap-x-2'>
+      <span>Гарантия</span>
+      <span className='h-[1px] border-dashed border-b-[1px] border-b-[#d1d1d1] '></span>
+      <span
+          className='text-[#686767]'>1 год</span>
+    </li>
+    <li className='grid grid-cols-[max-content,1fr,max-content] items-center gap-x-2'>
+      <span>Год выпуска</span>
+      <span className='h-[1px] border-dashed border-b-[1px] border-b-[#d1d1d1] '></span>
+      <span
+          className='text-[#686767]'>2023</span>
+    </li>
+  </ul>
+}
+
+
+SingleSneaker.Description = SingleSneakerDescription
+SingleSneaker.Characteristics = SingleSneakerCharacteristics
+
+function useSingleSneaker() {
+  const context = useContext(SingleSneakerContext)
+  if (!context) throw new Error("Ошибка: Попытка доступа к контексту за пределами провайдера. Убедитесь, что компонент, пытающийся получить доступ к контексту, находится внутри дерева, обернутого провайдером контекста.")
+  return context
+}
+
+interface CartProps extends CartSneakerType {
   className?: string
   isLoading?: boolean
 }
 
-export const CartSneaker = ({className, _id, size,color,quantity,title,price,image, isLoading}: CartProps) => {
+export const CartSneaker = ({className, _id, size, color, quantity, title, price, image, isLoading}: CartProps) => {
   const [qty, setQty] = useState(quantity)
   const debouncedValue = useDebounce(qty, 500)
-  const [updateQuantity, {isLoading: isUpdateLoading}]= useUpdateCartProductMutation()
+  const [updateQuantity, {isLoading: isUpdateLoading}] = useUpdateCartProductMutation()
   const [deleteCartProducts, {isLoading: isDeleteLoading}] = useDeleteCartProductMutation()
 
   useEffect(() => {
     if (debouncedValue === quantity) return
     updateQuantity({quantity: debouncedValue, cartProductId: _id})
   }, [debouncedValue])
-  
 
-  return <li className={cn('grid grid-cols-5 gap-x-3 items-center tablet:flex tablet:flex-wrap tablet:gap-5 ', className)}>
+
+  return <li
+      className={cn('grid grid-cols-5 gap-x-3 items-center tablet:flex tablet:flex-wrap tablet:gap-5 ', className)}>
     <div className='flex items-center gap-x-4 col-span-2 tablet:w-full  '>
       <div className='w-[90px] h-[90px] tablet:w-52 md-phone:w-20 md-phone:h-20 bg-[#F6F6F6] tablet:h-32'>
         <img className='h-full object-cover' src={image} alt={title}/>
@@ -318,7 +411,7 @@ export const CartSneaker = ({className, _id, size,color,quantity,title,price,ima
         <span className="block mb-1">{title}</span>
         <div className='flex items-center gap-x-4 text-[#2e2e2e] text-sm'>
           <div className='flex items-center gap-x-1'>
-            <span >Цвет:</span>
+            <span>Цвет:</span>
             <span className='w-6 h-6 flex items-center justify-center rounded-full border-[1px] border-[#EAEAEA]'>
               <span style={{backgroundColor: color}} className='w-4 h-4 rounded-full'></span>
             </span>
@@ -333,14 +426,18 @@ export const CartSneaker = ({className, _id, size,color,quantity,title,price,ima
       <Button disabled={isLoading || isUpdateLoading || isDeleteLoading} onClick={() => {
         if (qty <= 1) return
         setQty(prev => prev - 1)
-      }}  className='h-full w-[30px] border-r-[1px] border-r-[#EAEAEA] border-solid disabled:cursor-not-allowed disabled:opacity-70' variant='clear'>-</Button>
+      }}
+              className='h-full w-[30px] border-r-[1px] border-r-[#EAEAEA] border-solid disabled:cursor-not-allowed disabled:opacity-70'
+              variant='clear'>-</Button>
       <span className='w-[50px] h-full border-r-[1px] border-r-[#EAEAEA] flex items-center justify-center'>{qty}</span>
-      <Button disabled={isLoading || isUpdateLoading || isDeleteLoading}  onClick={() => setQty(prev => prev + 1)} className='h-full w-[30px] disabled:cursor-not-allowed disabled:opacity-70' variant='clear'>+</Button>
+      <Button disabled={isLoading || isUpdateLoading || isDeleteLoading} onClick={() => setQty(prev => prev + 1)}
+              className='h-full w-[30px] disabled:cursor-not-allowed disabled:opacity-70' variant='clear'>+</Button>
     </div>
     <div className="flex items-center justify-between tablet:order-2">
       <span className='text-[17px] font-semibold tablet:hidden'>{(price * qty).toFixed(2)} ₽</span>
-      <Button disabled={isLoading || isUpdateLoading || isDeleteLoading} onClick={() => deleteCartProducts(_id)} className='w-4 h-4 disabled:cursor-not-allowed disabled:opacity-70' variant='clear'>
-        <img  src={deleteCartProduct} alt='delete'/>
+      <Button disabled={isLoading || isUpdateLoading || isDeleteLoading} onClick={() => deleteCartProducts(_id)}
+              className='w-4 h-4 disabled:cursor-not-allowed disabled:opacity-70' variant='clear'>
+        <img src={deleteCartProduct} alt='delete'/>
       </Button>
     </div>
   </li>

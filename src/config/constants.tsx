@@ -185,3 +185,4 @@ export const NOTIFICATIONS:Record<string, {supText: string, subText: ReactElemen
     product: {supText: "Товары отсуствуют" , subText: <span className='font-[15px] mb-[30px] max-w-[670px] tablet:text-sm tablet:mb-5'>На данный момент на складе пусто. Возвращайтесь чуть позже</span>, icon: emptyProductIcon, to: "/"}
 }
 
+

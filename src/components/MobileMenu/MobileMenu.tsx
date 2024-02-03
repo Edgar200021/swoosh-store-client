@@ -54,7 +54,7 @@ export const MobileMenu = ({className}: Props) => {
         <Button
             variant="clear"
             className={cn(
-                'pl-[52px] relative before:absolute before:w-9 before:h-[2px] before:bg-black before:left-0 before:bottom-1 after:absolute after:w-7 after:h-[2px] after:bg-black after:left-2 after:top-2 md-phone:after:top-0 md-phone:before:-bottom-2 transition-colors duration-200 before:transition-colors before:duration-200 before:ease after:transition-colors after:duration-200 after:ease ease',
+                'pl-[52px] md-phone:py-[8px] md-phone:translate-y-1  items-start  relative before:absolute before:w-9 before:h-[2px] before:bg-black before:left-0 before:bottom-1 after:absolute after:w-7 after:h-[2px] after:bg-black after:left-2 after:top-2 md-phone:after:top-0 md-phone:before:0 transition-colors duration-200 before:transition-colors before:duration-200 before:ease after:transition-colors after:duration-200 after:ease ease',
                 {
                   'text-[#FB5A00] after:bg-[#FB5A00] before:bg-[#FB5A00]': isMounted,
                 }
