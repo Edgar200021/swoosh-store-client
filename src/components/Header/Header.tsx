@@ -108,7 +108,7 @@ export const Header = ({className}: Props) => {
                 className="[&>*]:px-6 [&>*]:py-4 [&>*]:border-solid [&>*]:border-[#EAEAEA] [&>*]:border-l-[1px] lg-tablet:[&>*]:px-3 flex items-center shrink-0">
               <ProductSearch
                   className="top-0 left-[50%] translate-x-[-55%] w-[1070px] lg-desktop:w-[65%]  desktop:w-[65%] desktop:translate-x-[-56%] h-full !p-0 !border-none"/>
-              <Button className="inline-block w-full h-full" variant="clear">
+              <Button to='/products/favorites' className="inline-block w-full h-full" variant="clear">
                 <img className="w-4 h-4" src={hearth} alt="Hearth"/>
               </Button>
               <Button

@@ -41,7 +41,7 @@ export const HeaderMobile = ({className}: Props) => {
               >
                 <img className="w-4 h-4" src={userIcon} alt="User"/>
               </Button>
-              <Button  className="inline-block w-full h-full" variant="clear">
+              <Button to='/products/favorites'  className="inline-block w-full h-full" variant="clear">
                 <img className="w-4 h-4" src={hearth} alt="Hearth"/>
               </Button>
               <Button

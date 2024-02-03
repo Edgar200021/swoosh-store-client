@@ -15,6 +15,7 @@ import {Loader} from "@/components/ui/Loader.tsx";
 import {memo, useEffect} from "react";
 import {Notification} from "@/components/Notification/Notification.tsx";
 import {SneakerSkeleton} from "@/components/Skeletons/Skeletons.tsx";
+import {useSearchParams} from "react-router-dom";
 
 interface Props {
   className?: string
@@ -93,17 +94,22 @@ export const SneakersList = memo((
   )
 })
 
-export const FavoriteSneakerList = ({className}: Pick<Props, 'className'>) => {
-  const favoriteProducts = useAppSelector(getFavoriteProducts)
+export const FavoriteSneakerList = ({className, limit = 12}: Pick<Props, 'className'> & {limit?: number}) => {
+  const [searchParams] = useSearchParams(),
+      favoriteProducts = useAppSelector(getFavoriteProducts),
+      page = Number(searchParams.get('page'))
 
-  return favoriteProducts.length ? <ul
+
+  return favoriteProducts.length ?<> <ul
       className={cn(
-          'grid grid-cols-sneaker-list-favorite gap-10 justify-items-center',
+          'grid grid-cols-sneaker-list gap-10 !justify-items-center mb-20 ',
           className
       )}
   >
-    {favoriteProducts.map(sneaker => <Sneaker key={sneaker._id} sneaker={sneaker}/>)}
-  </ul> : <Notification className='max-w-[450px]' variant='favorite'/>
+    {favoriteProducts.slice(page <= 1 ? 0 : (page - 1) * limit,  page <= 1 ? limit : page * limit).map(sneaker => <Sneaker key={sneaker._id} sneaker={sneaker}/>)}
+  </ul>
+    <Paginate initialPage={!page ? 1 : page} totalQuantity={favoriteProducts.length} limit={limit}/>
+  </>: <Notification className='max-w-[450px]' variant='favorite'/>
 }
 
 

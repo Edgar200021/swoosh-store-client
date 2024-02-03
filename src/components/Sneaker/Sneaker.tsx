@@ -88,11 +88,11 @@ export const Sneaker = ({className, sneaker}: Props) => {
             <span className="text-xl">{sneaker.price} ₽</span>
             {!!sneaker.priceDiscount && (
                 <span className="text-[#999] line-through text-sm">
-              {sneaker.priceDiscount} ₽
+              {sneaker.priceDiscount.toFixed(2)} ₽
             </span>
             )}
           </div>
-          <Button to={`/products/${sneaker._id}`} variant="clear" className="w-[22px] h-6">
+          <Button  to={`/products/${sneaker._id}`} variant="clear" className="w-[22px] h-6">
             <img alt='cart' src={cartIcon}/>
           </Button>
         </div>

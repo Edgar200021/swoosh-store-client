@@ -52,6 +52,13 @@ export const routerConfig = createBrowserRouter([
        element: <SneakerPage/>
       },
       {
+        path: '/products/favorites',
+        element: <main className='container pt-40 md-tablet:pt-20 mb-44 tablet:mb-20'><div className="container">
+          <FavoriteProductsPage/>
+        </div></main>
+      },
+
+      {
         element: <ProtectedRoute role={[UserRoles.USER]}>
           <PersonalAccountLayout/>
         </ProtectedRoute>,

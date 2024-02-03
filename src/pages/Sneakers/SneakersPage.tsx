@@ -9,10 +9,8 @@ import {Notification} from "@/components/Notification/Notification.tsx";
 
 
 export const SneakersPage = () => {
-  const filterObj = useGetSearchParams('size', 'colors', 'limit', 'page', 'price>=', 'price<=', 'color', 'material', 'for', 'sort')
+  const filterObj = useGetSearchParams('size', 'colors', 'limit', 'page', 'price>=', 'price<=', 'color', 'material', 'for', 'sort', 'sale')
   const [isError, setIsError] = useState(false)
-
-
 
   return (
       <main className='pt-48 md-tablet:pt-24 mb-44 tablet:mb-20'>
