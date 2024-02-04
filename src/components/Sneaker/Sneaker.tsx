@@ -14,7 +14,7 @@ import {CartSneaker as CartSneakerType} from "@/store/cart/interfaces.ts";
 import {getDayDifference} from '../../helpers/date'
 import {addFavoriteSneaker} from "../../store/sneaker/sneakerSlice.ts";
 import {getFavoriteProduct} from "../../store/sneaker/selectors.ts";
-import {ChangeEvent, createContext, useContext, useEffect, useState} from "react";
+import {ChangeEvent, createContext, ReactNode, useContext, useEffect, useState} from "react";
 import {
   useAddCartProductMutation,
   useDeleteCartProductMutation,
@@ -23,6 +23,8 @@ import {
 import {validateError} from "@/helpers/validateError.ts";
 import toast from "react-hot-toast";
 import {useDebounce} from "@/hooks/useDebounce.ts";
+import {Modal} from "@/components/Modal/Modal.tsx";
+import {SizeTable} from "@/components/SizeTable/SizeTable.tsx";
 
 interface Props {
   className?: string
@@ -259,7 +261,12 @@ export const SingleSneaker = ({children, className,_id,title,discount,price,imag
         <div className='mb-10'>
           <div className="flex items-center justify-between mb-4">
             <span>Размер (EU):</span>
-            <Button variant='clear' className='underline'>Размерная таблица</Button>
+            <Modal >
+              <>
+              <Modal.Open renderTrigger={fn => <Button onClick={fn.bind(null, 'size-table')} variant='clear' className='underline'>Размерная таблица</Button>}/>
+                <Modal.Content currentModalName='size-table' renderContent={() => <SizeTable/>}/>
+              </>
+            </Modal>
           </div>
 
           <ul className='flex gap-[10px] flex-wrap'>
@@ -288,7 +295,7 @@ export const SingleSneaker = ({children, className,_id,title,discount,price,imag
             }
             <span className='text-3xl'>{priceDiscount ? priceDiscount.toFixed(2) : price} ₽</span>
           </div>
-          <div className='flex border-[1px] border-[#e9edf2] lg-tablet:h-[73px]'>
+          <div className='flex border-[1px] border-[#e9edf2] h-[73px]'>
             <Button onClick={() => {
               if (properties.quantity <= 1) return
               setProperties(prev => ({...prev, quantity: prev.quantity - 1}))

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import {useEffect, useRef} from 'react'
 
 export const useOutsideClick = <T extends HTMLElement>(
   close: () => void,
@@ -17,5 +17,5 @@ export const useOutsideClick = <T extends HTMLElement>(
     return () => document.removeEventListener('click', clickEvent, { capture })
   }, [close, capture])
 
-  return { ref }
+  return ref
 }

@@ -186,3 +186,10 @@ export const NOTIFICATIONS:Record<string, {supText: string, subText: ReactElemen
 }
 
 
+
+export const SIZE_TABLE: {heading: string, values: string[]}[] = [
+  {heading: "Длина ноги, см", values: ["22,5", "23,5", "24,5", "25", "25.5", "26", "26,5", "27,5", "28", "29", "29,5"]},
+  {heading: "EU", values: ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46"]},
+  {heading: "RUS", values: ["35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45",]},
+  {heading: "US", values: ["5,5", "6", "6,5", "7,5", "8", "8,5", "9", "10", "10,5", "11,5", "12"]},
+]

@@ -26,8 +26,10 @@ interface Props {
 }
 
 export const SneakersList = memo((
-    {className, filter, withSlider, withPaginate, onError}: Props
+    {className, filter = {limit: 12}, withSlider, withPaginate, onError}: Props
 ) => {
+
+  console.log('render')
 
   const {data, error, isLoading, isFetching} = useGetAllProductsQuery({
     ...filter,

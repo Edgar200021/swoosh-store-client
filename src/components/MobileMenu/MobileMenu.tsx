@@ -23,7 +23,7 @@ interface Props {
 export const MobileMenu = ({className}: Props) => {
   const [isMounted, setIsMounted] = useState(false)
   const [isOpened, setIsOpened] = useState(false)
-  const {ref} = useOutsideClick<HTMLDivElement>(closeMenu)
+  const ref = useOutsideClick<HTMLDivElement>(closeMenu)
   const user = useAppSelector(getUser)
 
 

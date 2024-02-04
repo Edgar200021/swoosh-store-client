@@ -14,7 +14,7 @@ export const Review = ({className}: Props) => {
 	return <div className={cn("flex flex-col gap-y-2 max-w-[640px] w-full", className)}>
 		<span className="block text-[#2f2f2f] text-xl">Василий Евгеньевич</span>
 		<div className="flex items-center gap-x-5">
-			<Stars initialRating={2}/>
+			<Stars clickable={false} initialRating={2}/>
 			{formatDate(new Date('2023-08-21'))}
 		</div>
 		<p className='text-[#363636] space tracking-wide'>Легкие, поддерживают стопу и идеально сидят на ноге. Воздушная подошва дарит ощущение плавного движения.
