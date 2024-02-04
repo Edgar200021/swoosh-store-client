@@ -3,7 +3,7 @@ import {ComponentProps} from "react";
 interface Props extends ComponentProps<'svg'> {
 	full: boolean
 }
-export const Star = ({width = 20, height = 20, fill = "#45454C", stroke = "#454A4C", full, ...otherProps}: Props) => {
+export const Star = ({width = 20, height = 20, fill = "#45454C", stroke, full, ...otherProps}: Props) => {
 
 	if (full) return <svg {...otherProps} width={width} height={height} viewBox="0 0 14 14" fill="#454A4C" xmlns="http://www.w3.org/2000/svg">
 		<path

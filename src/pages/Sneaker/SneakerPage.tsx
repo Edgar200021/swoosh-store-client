@@ -5,7 +5,6 @@ import {cn} from "@/helpers/cn.ts";
 import {Loader} from "@/components/ui/Loader.tsx";
 import {Notification} from "@/components/Notification/Notification.tsx";
 import {Tabs} from "@/components/Tabs/Tabs.tsx";
-import {Review} from "@/components/Review/Review.tsx";
 
 interface Props {
 	className?: string
@@ -25,7 +24,7 @@ export const SneakerPage = ({className}: Props) => {
 			<Tabs tabsInfo={[
 				{tabTitle: 'Описание', tabContent: <SingleSneaker.Description/>},
 				{tabTitle: 'Характеристики', tabContent: <SingleSneaker.Characteristics className='max-w-[525px]'/>},
-				{tabTitle: 'Отзывы', tabContent: <Review/>}
+				{tabTitle: 'Отзывы', tabContent: <SingleSneaker.Reviews/>}
 			]}/>
 		</SingleSneaker>
 		<hr className='mb-10 bg-[#EAEAEA]'/>

@@ -25,6 +25,8 @@ import toast from "react-hot-toast";
 import {useDebounce} from "@/hooks/useDebounce.ts";
 import {Modal} from "@/components/Modal/Modal.tsx";
 import {SizeTable} from "@/components/SizeTable/SizeTable.tsx";
+import {ReviewList} from "@/components/Lists/ReviewList.tsx";
+import {ReviewForm} from "@/components/Forms/ReviewForm.tsx";
 
 interface Props {
   className?: string
@@ -176,7 +178,7 @@ export const HitSneaker = ({
 
 
 
-const SingleSneakerContext = createContext<Partial<SneakerType> | null>(null)
+const SingleSneakerContext = createContext<SneakerType| null>(null)
 
 interface SingleProps extends SneakerType {
   className?: string
@@ -379,10 +381,23 @@ const SingleSneakerCharacteristics = ({className}: { className?: string }) => {
     </li>
   </ul>
 }
+const SingleSneakerReviews = ({className}: {className?: string}) => {
+  const {_id} = useSingleSneaker()
+
+
+  return <div className={cn('', className)}>
+    <ReviewList className='mb-[60px] phone:mb-[30px]' sneakerId={_id}/>
+    <Modal>
+      <Modal.Open renderTrigger={fn => <Button onClick={fn.bind(null, "create-review")} variant='clear' className='block w-[100%] border-solid border-[1px] border-black p-4 uppercase text-xs font-medium text-center'>Оставить отзыв</Button>}/>
+      <Modal.Content currentModalName='create-review' renderContent={(closeModal) => <ReviewForm closeModal={closeModal} sneakerId={_id}/>}/>
+    </Modal>
+  </div>
+}
 
 
 SingleSneaker.Description = SingleSneakerDescription
 SingleSneaker.Characteristics = SingleSneakerCharacteristics
+SingleSneaker.Reviews = SingleSneakerReviews
 
 function useSingleSneaker() {
   const context = useContext(SingleSneakerContext)

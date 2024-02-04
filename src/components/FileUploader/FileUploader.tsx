@@ -1,11 +1,11 @@
 import sprites from '../../assets/icons/sprite.svg'
 import {cn} from "../../helpers/cn.ts";
 import {Button} from "../ui/Button.tsx";
-import {ComponentProps, MutableRefObject, useRef, useState, DragEvent, memo,} from 'react'
+import {ComponentProps, DragEvent, memo, MutableRefObject, useRef, useState,} from 'react'
 
 interface Props extends ComponentProps<'input'> {
   className?: string
-  shareFile: (file: File) => void
+  shareFile?: (file: File | FileList) => void
   supportedFiles?: string[]
 }
 
@@ -13,6 +13,7 @@ export const FileUploader = memo(({
                                     className,
                                     shareFile,
                                     supportedFiles = ['JPEG', "PNG", "AVIF", 'SVG'],
+                                    multiple,
                                     ...otherProps
                                   }: Props) => {
   const [dragActive, setDragActive] = useState(false)
@@ -36,7 +37,7 @@ export const FileUploader = memo(({
   function handleDragDrop(e: DragEvent<HTMLDivElement>) {
     e.preventDefault()
     setDragActive(false)
-    shareFile(e.dataTransfer.files[0])
+    shareFile?.(multiple ? e.dataTransfer.files : e.dataTransfer.files[0])
   }
 
 
@@ -56,8 +57,8 @@ export const FileUploader = memo(({
                                                                                  variant='clear'> Загружите</Button></span>
             <span>Поддерживаемые форматы: {supportedFiles.map(f => f.toUpperCase()).join(', ')}</span></>}
 
-          <input onChange={e => e.target.files && shareFile(e.target.files[0])}
-                 ref={ref as MutableRefObject<HTMLInputElement>} {...otherProps} type="file"
+          <input onChange={e => e.target.files && shareFile?.(multiple ? e.target.files : e.target.files[0])}
+                 ref={ref as MutableRefObject<HTMLInputElement>} multiple={multiple} {...otherProps} type="file"
                  className='hidden'/>
         </div>
       </div>

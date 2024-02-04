@@ -1,4 +1,4 @@
-import {useForm, Controller, SubmitHandler} from 'react-hook-form'
+import {Controller, SubmitHandler, useForm} from 'react-hook-form'
 
 import {cn} from '../../helpers/cn'
 import {Input} from '../ui/Input'
@@ -43,7 +43,8 @@ export const EditUserProfileForm = ({className}: Props) => {
       validateError(e)
     }
   }
-  const handleAddAvatar = useCallback((avatar: File) => {
+  const handleAddAvatar = useCallback((avatar: File | FileList) => {
+    if (avatar instanceof  FileList) return
     if (!avatar?.type.startsWith('image')) {
       toast.error('Не поддерживаемый формат файла')
       return
@@ -104,7 +105,7 @@ export const EditUserProfileForm = ({className}: Props) => {
                     <img src={deleteFileIcon} alt='delete file'/>
                   </Button>
                 </div>
-                : <FileUploader className='max-w-full' accept='image/*' shareFile={handleAddAvatar}/>
+                : <FileUploader className='max-w-full' accept='image/*'  shareFile={handleAddAvatar}/>
             }
 
           </div>

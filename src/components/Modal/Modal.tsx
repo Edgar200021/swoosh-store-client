@@ -61,9 +61,9 @@ const Content = ({currentModalName, renderContent, className}: ContentProps) => 
 
 
 	if (currentModalName !== modalName) return null
-	return createPortal(<div className={cn('min-h-[100svh] flex justify-center items-center w-full fixed top-0 left-0 bg-black/90 backdrop-blur-[1px] z-[100] px-10 phone:px-5 py-5 ', className)}>
-		<div ref={ref as RefObject<HTMLDivElement>} className="p-10 bg-white tablet:p-6 relative overflow-y-auto max-h-[100svh] ">
-			<Button onClick={closeFn} variant='clear'  className='absolute right-5 top-5'>X</Button>
+	return createPortal(<div className={cn('min-h-[100svh] flex justify-center items-center w-full fixed top-0 left-0 bg-black/90 backdrop-blur-[1px] z-[100] px-10 md-phone:px-2 py-5 ', className)}>
+		<div ref={ref as RefObject<HTMLDivElement>} className="p-10 bg-white tablet:p-6 phone:p-3 relative overflow-y-auto max-h-[100svh] ">
+			<Button onClick={closeFn} variant='clear'  className='absolute right-5 top-5 phone:top-2 phone:right-2'>X</Button>
 			{renderContent(closeFn)}
 		</div>
 	</div>, document.body)

@@ -76,6 +76,6 @@ export const appApi = createApi({
   reducerPath: 'api',
   baseQuery: customBaseQuery,
   endpoints: builder => ({}),
-  tagTypes: ['cart']
+  tagTypes: ['cart', 'review']
 
 })
